@@ -1,7 +1,11 @@
+width = window.innerWidth * window.devicePixelRatio;
+height = window.innerHeight * window.devicePixelRatio;
+
+
 var config = {
     type: Phaser.AUTO,
-    width: 1000,
-    height: 600,
+    width: width,
+    height: height,
     physics: {
         default: 'arcade',
         arcade: {
@@ -26,7 +30,7 @@ var goForward = false;
 
 function preload ()
 {
-    this.load.image('chloe', 'assets/sprites/chloe.png');
+    this.load.image('chloe', 'assets/sprites/chloe1.png');
     this.load.image('background', 'assets/background1.jpg');
 
 }
@@ -34,10 +38,10 @@ function preload ()
 function create ()
 {
     //SHOW ASSETS
-    this.add.image(400, 300, 'background');
+    this.add.image(400, height/2, 'background');
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.chloe = this.physics.add.sprite(100, 500, 'chloe');
+    this.chloe = this.physics.add.sprite(100, height/2, 'chloe');
 
 
     //CAMERA
