@@ -1,7 +1,6 @@
 width = window.innerWidth * window.devicePixelRatio;
 height = window.innerHeight * window.devicePixelRatio;
 
-
 var config = {
     type: Phaser.AUTO,
     width: width,
@@ -19,11 +18,11 @@ var config = {
     }
 };
 
+var isPlaying = false;
 var scenographyConfig = {
-    walkSpeed : 1,
+    walkSpeed : 10,
     runSpeed : 2,
 };
-
 var game = new Phaser.Game(config);
 var goForward = false;
 
@@ -55,13 +54,26 @@ function create ()
     this.input.on('pointerup', () => goForward = false);
 
     this.cameras.main.startFollow(this.chloe, true, 0.05, 0.05);
-
 }
 
 function update () {
-    if (goForward)
-    {
+    if (!isPlaying) {
+        return null;
+    }
+
+    if (goForward) {
         this.chloe.x += scenographyConfig.walkSpeed;
-    } 
-    
+    }
+
+    if (this.chloe.x > window.innerWidth) {
+        showDialog('introduction');
+        endGame();
+    }
+}
+
+
+function endGame () {
+    console.log('end game !')
+    isPlaying = false;
+    switchScreen(ingameScreen, endScreen);
 }
