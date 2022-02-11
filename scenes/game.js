@@ -15,50 +15,49 @@ var config = {
     }
 };
 
+var scenographyConfig = {
+    walkSpeed : 1,
+    runSpeed : 2,
+};
+
 var game = new Phaser.Game(config);
+var goForward = false;
+
 
 function preload ()
 {
     this.load.image('chloe', 'assets/sprites/chloe.png');
-
-    //this.load.setBaseURL('http://labs.phaser.io');
-
     this.load.image('background', 'assets/background1.jpg');
-    /*this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-    this.load.image('red', 'assets/particles/red.png');*/
-    this.input.addDownCallback(function() {
-            
-            if (game.sound.context.state === 'suspended') {
-                game.sound.context.resume();
-            }
-            
-        });
-
 
 }
 
 function create ()
 {
-    
+    //SHOW ASSETS
     this.add.image(400, 300, 'background');
-    chloe = this.physics.add.sprite(100, 500, 'chloe');
-    /*var keyObj = this.input.keyboard.addKey('W');  // Get key object
-    keyObj.on('down', function() { 
-        chloe.setVelocityX(-160);
-    });*/
-    cursors = this.input.keyboard.createCursorKeys();
 
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.chloe = this.physics.add.sprite(100, 500, 'chloe');
+
+
+    //CAMERA
+    this.cameras.main.setBounds(0, 0, 1920 * 2, 1080 * 2);
+    this.physics.world.setBounds(0, 0, 1920 * 2, 1080 * 2);
+
+
+
+    //CHLOE MOVEMENT
+    this.input.on('pointerdown', () => goForward = true);
+    this.input.on('pointerup', () => goForward = false);
+
+    this.cameras.main.startFollow(this.chloe, true, 0.05, 0.05);
 
 }
 
 function update () {
-
-
-    if (cursors.left.isDown)
+    if (goForward)
     {
-        console.log("je bouge");
-        chloe.setVelocityX(-160);
-    }
+        this.chloe.x += scenographyConfig.walkSpeed;
+    } 
     
-    //this.input.on('pointerdown', () => console.log('click'));
 }
