@@ -10,7 +10,8 @@ var config = {
     },
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
@@ -22,7 +23,7 @@ function preload ()
 
     //this.load.setBaseURL('http://labs.phaser.io');
 
-    this.load.image('sky', 'assets/background1.jpg');
+    this.load.image('background', 'assets/background1.jpg');
     /*this.load.image('logo', 'assets/sprites/phaser3-logo.png');
     this.load.image('red', 'assets/particles/red.png');*/
     this.input.addDownCallback(function() {
@@ -39,12 +40,20 @@ function preload ()
 function create ()
 {
     
-    this.add.image(400, 300, 'sky');
+    this.add.image(400, 300, 'background');
     chloe = this.physics.add.sprite(100, 500, 'chloe');
-    
+    /*var keyObj = this.input.keyboard.addKey('W');  // Get key object
+    keyObj.on('down', function() { 
+        chloe.setVelocityX(-160);
+    });*/
+    cursors = this.input.keyboard.createCursorKeys();
+
+
 }
 
 function update () {
+
+
     if (cursors.left.isDown)
     {
         console.log("je bouge");
