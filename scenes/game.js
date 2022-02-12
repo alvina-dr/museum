@@ -38,14 +38,17 @@ function preload ()
 function create ()
 {
     //SHOW ASSETS
-    this.add.image(400, height/2, 'background');
+    this.background = this.add.image(3000, height, 'background');
+    this.background.displayHeight = height;
+    this.background.scaleY = this.background.scaleX;
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.chloe = this.physics.add.sprite(100, height/2, 'chloe');
+    this.chloe = this.physics.add.sprite(100, height, 'chloe');
+
 
 
     //CAMERA
-    this.cameras.main.setBounds(0, 0, 1920 * 2, 1080 * 2);
+    this.cameras.main.setBounds(100, 0, 1920 * 3, 1080 * 2);
     this.physics.world.setBounds(0, 0, 1920 * 2, 1080 * 2);
 
 
