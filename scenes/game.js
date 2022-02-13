@@ -22,6 +22,7 @@ var isPlaying = false;
 var scenographyConfig = {
     walkSpeed : 10,
     runSpeed : 2,
+    direction : 1
 };
 var game = new Phaser.Game(config);
 var goForward = false;
@@ -44,14 +45,14 @@ function create ()
     background.scaleX = background.scaleY;
 
     //CHLOE
-    chloe = this.physics.add.sprite(200, window.innerHeight/6*5, 'chloe');
+    chloe = this.physics.add.sprite(window.innerWidth/6, window.innerHeight/6*5, 'chloe');
     chloe.setOrigin(0, 0);
     chloe.setScale(background.scaleX/2);
 
 
     //CAMERA
-    this.cameras.main.setBounds(0, 0, background.width, window.innerHeight);
-    this.physics.world.setBounds(0, 0, background.width, window.innerHeight);
+    this.cameras.main.setBounds(0, 0, background.displayWidth, window.innerHeight);
+    this.physics.world.setBounds(0, 0, background.displayWidth, window.innerHeight);
 
 
 
@@ -68,17 +69,20 @@ function update () {
     }
 
     if (goForward) {
-        chloe.x += scenographyConfig.walkSpeed;
+        chloe.x += scenographyConfig.walkSpeed * scenographyConfig.direction;
     }
-    if (chloe.x > background.displayWidth) {
+    if (chloe.x > background.displayWidth) { //end of corridor
+        scenographyConfig.direction = -1;
+    }
+    if (chloe.x < 100 && scenographyConfig.direction === -1) { // coming back 
         showDialog('introduction');
         endGame();
     }
+
 }
 
 
 function endGame () {
-    console.log('end game !')
     isPlaying = false;
     switchScreen(ingameScreen, endScreen);
 }
