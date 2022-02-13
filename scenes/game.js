@@ -26,7 +26,6 @@ var scenographyConfig = {
 var game = new Phaser.Game(config);
 var goForward = false;
 
-
 function preload ()
 {
     this.load.image('chloe', 'assets/sprites/chloe1.png');
@@ -68,7 +67,7 @@ function update () {
         this.chloe.x += scenographyConfig.walkSpeed;
     }
 
-    if (this.chloe.x > window.innerWidth) {
+    if (this.chloe.x > 1920 * 3) { //window.innerWidth
         showDialog('introduction');
         endGame();
     }
