@@ -4,7 +4,7 @@ height = window.innerHeight * window.devicePixelRatio;
 var config = {
     type: Phaser.AUTO,
     width: width,
-    height: height,
+    height: window.innerHeight,
     physics: {
         default: 'arcade',
         arcade: {
@@ -36,16 +36,24 @@ function preload ()
 
 function create ()
 {
-    //SHOW ASSETS
-    this.add.image(400, height/2, 'background');
-
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.chloe = this.physics.add.sprite(100, height/2, 'chloe');
+
+    //BACKGROUND
+    background = this.add.image(0, 0, 'background');
+    background.setOrigin(0, 0);
+    background.displayHeight = window.innerHeight;
+    console.log(background.scaleY);
+    background.scaleX = background.scaleY;
+
+    //CHLOE
+    chloe = this.physics.add.sprite(200, window.innerHeight/6*5, 'chloe');
+    chloe.setOrigin(0, 0);
+    chloe.setScale(background.scaleX/2);
 
 
     //CAMERA
-    this.cameras.main.setBounds(0, 0, 1920 * 2, 1080 * 2);
-    this.physics.world.setBounds(0, 0, 1920 * 2, 1080 * 2);
+    this.cameras.main.setBounds(0, 0, background.width, window.innerHeight);
+    this.physics.world.setBounds(0, 0, background.width, window.innerHeight);
 
 
 
@@ -53,7 +61,7 @@ function create ()
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
 
-    this.cameras.main.startFollow(this.chloe, true, 0.05, 0.05);
+    this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
 }
 
 function update () {
@@ -62,10 +70,9 @@ function update () {
     }
 
     if (goForward) {
-        this.chloe.x += scenographyConfig.walkSpeed;
+        chloe.x += scenographyConfig.walkSpeed;
     }
-
-    if (this.chloe.x > window.innerWidth) {
+    if (chloe.x > background.width) {
         showDialog('introduction');
         endGame();
     }
