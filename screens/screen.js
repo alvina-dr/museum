@@ -15,6 +15,13 @@ function initHomeScreen() {
     });
 }
 
+function goMainMenu() {
+    var button = endScreen.querySelector('button');
+    button.addEventListener('click', () => {
+        switchScreen(endScreen, homeScreen);
+    });
+}
+
 function switchScreen(screenFrom, screenTo) {
     screenFrom.style.display = 'none';
     screenTo.style.display = 'block';
@@ -24,3 +31,4 @@ function switchScreen(screenFrom, screenTo) {
 
 // Appel / execution
 initHomeScreen();
+goMainMenu();

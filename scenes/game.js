@@ -82,18 +82,16 @@ function update () {
                     isPlaying = true;
                     painting1 += 1;
                 });
-
-
             });
         });
     }
-
 
     if (chloe.x > background.displayWidth) { //end of corridor
         scenographyConfig.direction = -1;
     }
     if (chloe.x < 100 && scenographyConfig.direction === -1) { // coming back 
         endGame();
+        
     }
 
 }
@@ -102,4 +100,9 @@ function update () {
 function endGame () {
     isPlaying = false;
     switchScreen(ingameScreen, endScreen);
+    //set all values back to zero
+    painting1 = 0;
+    chloe.x = 200;
+    scenographyConfig.direction = 1;  
+
 }
