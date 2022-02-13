@@ -1,4 +1,6 @@
 function showDialog(key) {
+    dialogBox.style.display = "block";
     var content = DIALOGS[key];
-    console.log(content);
+    dialogText.innerText = content;
+    isPlaying = false;
 }

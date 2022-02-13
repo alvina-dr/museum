@@ -33,9 +33,25 @@ main section {
     padding: 100px;
 }
 
+#ingame-screen {
+    background-color: rgb(95, 95, 86);
+    height: 1vh;
+    width: 100%;
+}
+
+#dialogBox {
+    display: none;
+    background-color: lightgoldenrodyellow;
+    height: 5vh;
+    width: 100%;
+    padding: 50px;
+    font-size: 1.5vh;
+}
+
 #end-screen {
     background-color: lightgoldenrodyellow;
     height: 100vh;
     width: 100%;
     padding: 100px;
 }
+

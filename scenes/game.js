@@ -26,6 +26,7 @@ var scenographyConfig = {
 };
 var game = new Phaser.Game(config);
 var goForward = false;
+var painting1 = 0;
 
 function preload ()
 {
@@ -48,19 +49,15 @@ function create ()
     chloe = this.physics.add.sprite(window.innerWidth/6, window.innerHeight/6*5, 'chloe');
     chloe.setOrigin(0, 0);
     chloe.setScale(background.scaleX/2);
-
-
-    //CAMERA
-    this.cameras.main.setBounds(0, 0, background.displayWidth, window.innerHeight);
-    this.physics.world.setBounds(0, 0, background.displayWidth, window.innerHeight);
-
-
-
     //CHLOE MOVEMENT
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
 
+    //CAMERA
+    this.cameras.main.setBounds(0, 0, background.displayWidth, window.innerHeight);
+    this.physics.world.setBounds(0, 0, background.displayWidth, window.innerHeight);
     this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
+
 }
 
 function update () {
@@ -71,11 +68,31 @@ function update () {
     if (goForward) {
         chloe.x += scenographyConfig.walkSpeed * scenographyConfig.direction;
     }
+    if (chloe.x > background.displayWidth/2 && painting1 === 0) { //half of corridor 
+        //await delay(5000); wait and animate somehow ?
+        //camera tremble
+        this.cameras.main.shake(0.05, 500);
+        showDialog('introduction1');
+        ingameScreen.addEventListener('click', () => {
+            showDialog('introduction2');
+            ingameScreen.addEventListener('click', () => {
+                showDialog('introduction3');
+                ingameScreen.addEventListener('click', () => {
+                    dialogBox.style.display = "none";
+                    isPlaying = true;
+                    painting1 += 1;
+                });
+
+
+            });
+        });
+    }
+
+
     if (chloe.x > background.displayWidth) { //end of corridor
         scenographyConfig.direction = -1;
     }
     if (chloe.x < 100 && scenographyConfig.direction === -1) { // coming back 
-        showDialog('introduction');
         endGame();
     }
 
