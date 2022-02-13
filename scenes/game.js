@@ -70,7 +70,7 @@ function update () {
     if (goForward) {
         chloe.x += scenographyConfig.walkSpeed;
     }
-    if (chloe.x > background.width) {
+    if (chloe.x > background.displayWidth) {
         showDialog('introduction');
         endGame();
     }
