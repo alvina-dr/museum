@@ -71,12 +71,7 @@ function update () {
     if (goForward) {
         chloe.x += scenographyConfig.walkSpeed;
     }
-<<<<<<< HEAD
     if (chloe.x > background.width) {
-=======
-
-    if (this.chloe.x > 1920 * 3) { //window.innerWidth
->>>>>>> 5fe44c15fe0240d23fbd6bf27648abd1d902ea33
         showDialog('introduction');
         endGame();
     }
