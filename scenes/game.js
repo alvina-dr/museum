@@ -3,7 +3,7 @@ height = window.innerHeight * window.devicePixelRatio;
 
 var config = {
     type: Phaser.AUTO,
-    width: width,
+    width: window.innerWidth,
     height: window.innerHeight,
     physics: {
         default: 'arcade',
@@ -41,7 +41,6 @@ function create ()
     background = this.add.image(0, 0, 'background');
     background.setOrigin(0, 0);
     background.displayHeight = window.innerHeight;
-    console.log(background.scaleY);
     background.scaleX = background.scaleY;
 
     //CHLOE
