@@ -11,34 +11,44 @@
 
     <main>
         <section id="home-screen">
-            <h1 class="mainTitle">Le nom du jeu</h1>
+            <h1 class="mainTitle">Nom du jeu en gros</h1>
             <div class="menuButtonBox">
                 <button class="menuButton" id="gameButton">Jouer</button>
-                <button class="menuButton" id="creditsButton">Crédits</button>
+                <button class="menuButton margin" id="creditsButton">Crédits</button>
             </div>
             <div class="quoteBox">
                 <h4 class="citation">"</h4>
                 <h4 class="citation" id="quoteDisplay"></h4>
-                <h4 class="citation">" -   </h4>
+                <h4 class="citation">" - </h4>
                 <h4 class="author" id="authorDisplay"></h4>
             </div>
         </section>
 
         <section id="credits">
-           <h1 class="mainTitle">Crédits</h1> 
-           <ul>
-               <li class="credit">Crédits 1</li>
-               <li class="credit">Crédits 2</li>
-               <li class="credit">Crédits 3</li>
-               <li class="credit">Crédits 4</li>
-               <li class="credit">Crédits 5</li>
-           </ul>
+            <div class="topcredits">
+                <button class="retourButtonCredit" id="backCreditsButton">
+                    <img src="/assets/ui/retour.png" alt="Retour au menu">
+                </button>
+                <h1 class="mainTitle margin">Crédits</h1>
+
+            </div>
+            <ul>
+                <li class="credit">Conçu par la Jaune Prod</li>
+                <li class="credit">Crédits 2</li>
+                <li class="credit">Crédits 3</li>
+                <li class="credit">Crédits 4</li>
+                <li class="credit">Crédits 5</li>
+            </ul>
         </section>
 
         <section id="ingame-screen">
             <div id="dialogBox">
-                <p></p>
+                <div class="dialogBoxFlex">
+                    <p class="textMaxSize"></p>
+                    <img src="/assets/ui/press.png" alt="Appuyer pour passer">
+                </div>
             </div>
+
         </section>
 
         <section id="end-screen">
