@@ -30,6 +30,13 @@ function goCredits() {
     });
 }
 
+function goMainMenuFromCredits() {
+    var button = document.getElementById('backCreditsButton');
+    button.addEventListener('click', () => {
+        switchScreen(credits, homeScreen);
+    });
+}
+
 function switchScreen(screenFrom, screenTo) {
     screenFrom.style.display = 'none';
     screenTo.style.display = 'block';
@@ -41,3 +48,4 @@ function switchScreen(screenFrom, screenTo) {
 initHomeScreen();
 goMainMenu();
 goCredits();
+goMainMenuFromCredits();
