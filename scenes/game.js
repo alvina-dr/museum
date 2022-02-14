@@ -20,7 +20,7 @@ var config = {
 
 var isPlaying = false;
 var scenographyConfig = {
-    walkSpeed : 10,
+    walkSpeed : 4,
     crowdSpeed : 2,
     direction : 1
 };
@@ -85,7 +85,7 @@ function update () {
     if (checkOverlap(chloe, foule)) 
     {
         speed = scenographyConfig.crowdSpeed;
-        this.cameras.main.shake(7);    
+        this.cameras.main.shake(7, 0.005);    
     }
     else
     {
