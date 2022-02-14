@@ -41,15 +41,12 @@ function create() {
 
 
     //BACKGROUND
-    let str = '';
 
     for (let i = 0; i < 50; i++) {
         background = this.add.image(i*400, 0, 'background');
         background.setOrigin(0, 0);
         background.displayHeight = window.innerHeight;
         background.scaleX = background.scaleY;
-        str = str + i;
-
     }
     background = this.add.image(0, 0, 'background');
     background.setOrigin(0, 0);
