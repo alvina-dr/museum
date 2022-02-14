@@ -3,5 +3,6 @@ function showDialog(key) {
     var content = DIALOGS[key];
     dialogText.innerText = content;
     isPlaying = false;
+    chloe.play("idle", true);
 }
 

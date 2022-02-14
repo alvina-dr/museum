@@ -112,8 +112,8 @@ main section {
 }
 
 #ingame-screen {
-    background-color: rgb(95, 95, 86);
-    height: 1vh;
+    background-color: transparent;
+    height: 0vh;
     width: 100%;
 }
 

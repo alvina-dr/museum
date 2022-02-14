@@ -29,8 +29,9 @@ var goForward = false;
 var painting1 = 0;
 var speed = scenographyConfig.walkSpeed;
 
-function preload() {
-    this.load.image('chloe', 'assets/sprites/chloe1.png');
+function preload ()
+{
+    this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
     this.load.image('background', 'assets/ui/BG.png');
     this.load.image('foule', 'assets/sprites/foule.png');
 }
@@ -40,22 +41,25 @@ function create() {
 
 
     //BACKGROUND
-    let str = '';
 
     for (let i = 0; i < 50; i++) {
         background = this.add.image(i*400, 0, 'background');
         background.setOrigin(0, 0);
         background.displayHeight = window.innerHeight;
         background.scaleX = background.scaleY;
-        str = str + i;
-
     }
     background = this.add.image(0, 0, 'background');
     background.setOrigin(0, 0);
     background.displayHeight = window.innerHeight;
     background.scaleX = background.scaleY;
 
-
+    //CHLOE ANIMATION
+    this.anims.create({
+        key: 'walk',
+        frames: this.anims.generateFrameNumbers('chloe'),
+        frameRate: 10,
+        repeat: -1
+    });
     //CHLOE
     chloe = this.physics.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 5, 'chloe');
     chloe.setOrigin(0, 0);
@@ -68,9 +72,6 @@ function create() {
     foule = this.physics.add.image(background.displayWidth * 5, window.innerHeight / 2, 'foule');
     foule.setOrigin(0, 0);
     foule.setScale(background.scaleX / 1.5);
-
-    //this.physics.add.overlap(chloe, foule, throughCrowd, null, this);
-    this.physics.add.overlap(chloe, foule);
 
     //CAMERA
     this.cameras.main.setBounds(0, 0, background.displayWidth*10, window.innerHeight);
@@ -85,14 +86,25 @@ function update() {
         return null;
     }
 
-    //AVANCER
-    if (goForward) {
+//ORIENTATION DU SPRITE
+    if (scenographyConfig.direction === -1) { 
+        chloe.flipX=true;
+    } else {
+        chloe.flipX=false;
+    }
+    
+//AVANCER
+    if (goForward) { 
         chloe.x += speed * scenographyConfig.direction;
+        chloe.play("walk", true);
+    }
+    else { 
+        chloe.play("idle", true);
     }
 
-    //CHECK SI CHLOÉ PASSE À TRAVERS LA FOULE
-    console.log(speed);
-    if (checkOverlap(chloe, foule)) {
+//CHECK SI CHLOÉ PASSE À TRAVERS LA FOULE
+    if (checkOverlap(chloe, foule)) 
+    {
         speed = scenographyConfig.crowdSpeed;
         this.cameras.main.shake(7, 0.005);
     }
@@ -103,6 +115,7 @@ function update() {
     //PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
     if (chloe.x > background.displayWidth * 5 && painting1 === 0) {
         //await delay(5000); wait and animate somehow ?
+        chloe.play("idle", true);
         showDialog('introduction1');
         ingameScreen.addEventListener('click', () => {
             showDialog('introduction2');
