@@ -1,7 +1,7 @@
 var quotes = [
     "Adrien",
     "Comment appelle-t-on un ghetto en Italie ? Un spaghetto.",
-    "Vincent",
+    "Pierre qui roule n'amasse pas de capital financier.",
     "Cyril",
     "Maurine",
     "Pauline",
