@@ -33,6 +33,7 @@ main section {
     display: block;
     background-color: lightgoldenrodyellow;
     background-image: url("/assets/ui/menu-bg.png");
+    background-size: cover;
     height: 100vh;
     width: 100%;
     padding: 100px;
@@ -84,6 +85,11 @@ main section {
     height: 100vh;
     width: 100%;
     padding: 100px;
+}
+
+.credit{
+    padding: 2vh;
+    margin-left: 20vw;
 }
 
 #ingame-screen {
