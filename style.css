@@ -32,6 +32,55 @@ main section {
 #home-screen {
     display: block;
     background-color: lightgoldenrodyellow;
+    background-image: url("/assets/ui/menu-bg.png");
+    height: 100vh;
+    width: 100%;
+    padding: 100px;
+}
+
+.mainTitle{
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 7vh;
+}
+
+.menuButtonBox{
+    height: 30vh;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.menuButton{
+    font-size: 5vh;
+    font-weight: 300;
+}
+
+.citation{
+    font-size: 3.5vh;
+    font-weight: 200;
+    font-style: italic;  
+}
+
+.author{
+    margin-left: 0.5vw;
+    font-size: 3vh;
+    font-weight: 200;
+    font-style: italic; 
+}
+
+.quoteBox{
+    display: flex;
+    justify-content: center; 
+    flex-direction: row;
+    margin: 5vh;
+    text-align: center;
+    align-items: center;
+}
+
+#credits{
+    background-color: lightgoldenrodyellow;
     height: 100vh;
     width: 100%;
     padding: 100px;

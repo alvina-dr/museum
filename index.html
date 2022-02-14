@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="style.css">
-    <link href="//db.onlinewebfonts.com/c/0841832efbb3901931dccd608ef8e051?family=WhatnotW00-Regular" rel="stylesheet" type="text/css"/>
+    <link href="//db.onlinewebfonts.com/c/0841832efbb3901931dccd608ef8e051?family=WhatnotW00-Regular" rel="stylesheet"
+        type="text/css" />
 </head>
-<body>
+
+<body onload="Quote()">
 
     <main>
         <section id="home-screen">
-            <h1>Le nom du jeu</h1>
-            <button>Jouer</button>
+            <h1 class="mainTitle">Le nom du jeu</h1>
+            <div class="menuButtonBox">
+                <button class="menuButton" id="gameButton">Jouer</button>
+                <button class="menuButton" id="creditsButton">Crédits</button>
+            </div>
+            <div class="quoteBox">
+                <h4 class="citation">"</h4>
+                <h4 class="citation" id="quoteDisplay"></h4>
+                <h4 class="citation">" -   </h4>
+                <h4 class="author" id="authorDisplay"></h4>
+            </div>
+        </section>
+
+        <section id="credits">
+           <h1 class="mainTitle">Crédits</h1> 
+           <li>
+               <ul>Crédits 1</ul>
+           </li>
         </section>
 
         <section id="ingame-screen">
@@ -29,5 +48,7 @@
     <script src="screens/screen.js"></script>
     <script src="screens/DIALOGS.js"></script>
     <script src="screens/dialogsManager.js"></script>
+    <script src="/screens/quoteManager.js"></script>
 </body>
+
 </html>

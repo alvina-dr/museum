@@ -1,13 +1,14 @@
 var homeScreen = document.getElementById('home-screen'),
     ingameScreen = document.getElementById('ingame-screen'),
     endScreen = document.getElementById('end-screen'),
+    credits = document.getElementById('credits'),
     dialogBox = ingameScreen.querySelector('div');
     dialogText = ingameScreen.querySelector('p');
 
 
 // Déclaration 
 function initHomeScreen() {
-    var button = homeScreen.querySelector('button');
+    var button = document.getElementById('gameButton');
 
     button.addEventListener('click', () => {
         switchScreen(homeScreen, ingameScreen);
@@ -22,6 +23,13 @@ function goMainMenu() {
     });
 }
 
+function goCredits() {
+    var button = document.getElementById('creditsButton');
+    button.addEventListener('click', () => {
+        switchScreen(homeScreen, credits);
+    });
+}
+
 function switchScreen(screenFrom, screenTo) {
     screenFrom.style.display = 'none';
     screenTo.style.display = 'block';
@@ -32,3 +40,4 @@ function switchScreen(screenFrom, screenTo) {
 // Appel / execution
 initHomeScreen();
 goMainMenu();
+goCredits();

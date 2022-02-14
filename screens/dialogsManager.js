@@ -4,3 +4,4 @@ function showDialog(key) {
     dialogText.innerText = content;
     isPlaying = false;
 }
+
