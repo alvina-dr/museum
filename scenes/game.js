@@ -32,6 +32,7 @@ var speed = scenographyConfig.walkSpeed;
 function preload ()
 {
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
+    this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 331, frameHeight: 360 });
     this.load.image('background', 'assets/ui/BG.png');
     this.load.image('foule', 'assets/sprites/foule.png');
 }
@@ -52,6 +53,7 @@ function create() {
     background.setOrigin(0, 0);
     background.displayHeight = window.innerHeight;
     background.scaleX = background.scaleY;
+    totalBackgroundLength = background.displayWidth * 10; //LA LONGUEUR TOTAL DU BACKGROUND (en fonction de la hauteur de l'écran)
 
     //CHLOE ANIMATION
     this.anims.create({
@@ -68,14 +70,21 @@ function create() {
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
 
+    //LILY
+    lily = this.physics.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 5, 'lily');
+    lily.setOrigin(0, 0);
+    lily.setScale(background.scaleX / 2);
+
+
+
     //FOULE
-    foule = this.physics.add.image(background.displayWidth * 5, window.innerHeight / 2, 'foule');
+    foule = this.physics.add.image(totalBackgroundLength/3, window.innerHeight / 2, 'foule');
     foule.setOrigin(0, 0);
     foule.setScale(background.scaleX / 1.5);
 
     //CAMERA
-    this.cameras.main.setBounds(0, 0, background.displayWidth*10, window.innerHeight);
-    this.physics.world.setBounds(0, 0, background.displayWidth*10, window.innerHeight);
+    this.cameras.main.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
+    this.physics.world.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
     this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
 
 }
@@ -113,7 +122,7 @@ function update() {
     }
 
     //PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
-    if (chloe.x > background.displayWidth * 5 && painting1 === 0) {
+    if (chloe.x > totalBackgroundLength/2 && painting1 === 0) {
         //await delay(5000); wait and animate somehow ?
         chloe.play("idle", true);
         showDialog('introduction1');
@@ -131,7 +140,7 @@ function update() {
     }
 
     //DEMI-TOUR À LA FIN DU COULOIR
-    if (chloe.x > background.displayWidth * 10) {
+    if (chloe.x > totalBackgroundLength) {
         scenographyConfig.direction = -1;
     }
 
