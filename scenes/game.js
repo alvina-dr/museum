@@ -20,7 +20,7 @@ var config = {
 
 var isPlaying = false;
 var scenographyConfig = {
-    walkSpeed : 10,
+    walkSpeed : 1000,
     crowdSpeed : 2,
     direction : 1
 };
