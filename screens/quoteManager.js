@@ -1,6 +1,6 @@
 var quotes = [
     "Adrien",
-    "Alvina",
+    "Comment appelle-t-on un ghetto en Italie ? Un spaghetto.",
     "Vincent",
     "Cyril",
     "Maurine",

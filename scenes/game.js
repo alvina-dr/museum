@@ -56,11 +56,11 @@ function create ()
     this.input.on('pointerup', () => goForward = false);
 
     //FOULE
-    foule = this.physics.add.image(background.displayWidth/3, window.innerHeight, 'foule');
-    foule.setOrigin(0, 1);
+    foule = this.physics.add.image(background.displayWidth/3, window.innerHeight/2, 'foule');
+    foule.setOrigin(0, 0);
 
-    this.physics.add.overlap(chloe, foule, throughCrowd, null, this);
-
+    //this.physics.add.overlap(chloe, foule, throughCrowd, null, this);
+    this.physics.add.overlap(chloe, foule);
 
     //CAMERA
     this.cameras.main.setBounds(0, 0, background.displayWidth, window.innerHeight);
@@ -70,16 +70,31 @@ function create ()
 }
 
 function update () {
-    if (!isPlaying) {
+//GAME IS PLAYING
+    if (!isPlaying) { 
         return null;
     }
-    console.log(speed);
-    if (goForward) {
+
+//AVANCER
+    if (goForward) { 
         chloe.x += speed * scenographyConfig.direction;
     }
-    if (chloe.x > background.displayWidth/2 && painting1 === 0) { //half of corridor 
+
+//CHECK SI CHLOÉ PASSE À TRAVERS LA FOULE
+    console.log(speed);
+    if (checkOverlap(chloe, foule)) 
+    {
+        speed = scenographyConfig.crowdSpeed;
+        this.cameras.main.shake(7, 0.005);    
+    }
+    else
+    {
+        speed = scenographyConfig.walkSpeed;
+    }
+
+//PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
+    if (chloe.x > background.displayWidth/2 && painting1 === 0) { 
         //await delay(5000); wait and animate somehow ?
-        //camera tremble
         showDialog('introduction1');
         ingameScreen.addEventListener('click', () => {
             showDialog('introduction2');
@@ -94,28 +109,32 @@ function update () {
         });
     }
 
-    if (chloe.x > background.displayWidth) { //end of corridor
+//DEMI-TOUR À LA FIN DU COULOIR
+    if (chloe.x > background.displayWidth) { 
         scenographyConfig.direction = -1;
     }
-    if (chloe.x < 100 && scenographyConfig.direction === -1) { // coming back 
+
+//CHLOE RETROUVE SA MAMAN 
+    if (chloe.x < 100 && scenographyConfig.direction === -1) { 
         endGame();
         
     }
-
 }
 
 
-function endGame () {
+//MES FONCTIONS -----------------------------------------------------------------------------------------------------------------
+
+function endGame () { //FIN DU JEU
     isPlaying = false;
     switchScreen(ingameScreen, endScreen);
-    //set all values back to zero
+    //set all values back to zero to cleanly restart the game
     painting1 = 0;
     chloe.x = 200;
     scenographyConfig.direction = 1;  
-
 }
 
-function throughCrowd(chloe, foule) {
-    speed = scenographyConfig.crowdSpeed;
-    this.cameras.main.shake(7);
+function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
+    var boundsA = spriteA.getBounds();
+    var boundsB = spriteB.getBounds();
+    return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
 }
