@@ -31,7 +31,7 @@ var speed = scenographyConfig.walkSpeed;
 
 function preload ()
 {
-    this.load.image('chloe', 'assets/sprites/chloe1.png');
+    this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
     this.load.image('background', 'assets/background1.jpg');
     this.load.image('foule', 'assets/sprites/foule.png');
 }
@@ -47,10 +47,18 @@ function create ()
     background.displayHeight = window.innerHeight;
     background.scaleX = background.scaleY;
 
+    //CHLOE ANIMATION
+    this.anims.create({
+        key: 'walk',
+        frames: this.anims.generateFrameNumbers('chloe'),
+        frameRate: 10,
+        repeat: -1
+    });
     //CHLOE
     chloe = this.physics.add.sprite(window.innerWidth/6, window.innerHeight/6*5, 'chloe');
     chloe.setOrigin(0, 0);
     chloe.setScale(background.scaleX/2);
+
     //CHLOE MOVEMENT
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
@@ -58,9 +66,6 @@ function create ()
     //FOULE
     foule = this.physics.add.image(background.displayWidth/3, window.innerHeight/2, 'foule');
     foule.setOrigin(0, 0);
-
-    //this.physics.add.overlap(chloe, foule, throughCrowd, null, this);
-    this.physics.add.overlap(chloe, foule);
 
     //CAMERA
     this.cameras.main.setBounds(0, 0, background.displayWidth, window.innerHeight);
@@ -75,13 +80,23 @@ function update () {
         return null;
     }
 
+//ORIENTATION DU SPRITE
+    if (scenographyConfig.direction === -1) { 
+        chloe.flipX=true;
+    } else {
+        chloe.flipX=false;
+    }
+    
 //AVANCER
     if (goForward) { 
         chloe.x += speed * scenographyConfig.direction;
+        chloe.play("walk", true);
+    }
+    else { 
+        chloe.play("idle", true);
     }
 
 //CHECK SI CHLOÉ PASSE À TRAVERS LA FOULE
-    console.log(speed);
     if (checkOverlap(chloe, foule)) 
     {
         speed = scenographyConfig.crowdSpeed;
@@ -93,8 +108,9 @@ function update () {
     }
 
 //PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
-    if (chloe.x > background.displayWidth/2 && painting1 === 0) { 
+    if (chloe.x > background.displayWidth/4 && painting1 === 0) { 
         //await delay(5000); wait and animate somehow ?
+        chloe.play("idle", true);
         showDialog('introduction1');
         ingameScreen.addEventListener('click', () => {
             showDialog('introduction2');
