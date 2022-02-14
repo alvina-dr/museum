@@ -21,23 +21,25 @@ var config = {
 var isPlaying = false;
 var scenographyConfig = {
     walkSpeed : 10,
-    runSpeed : 2,
+    crowdSpeed : 2,
     direction : 1
 };
 var game = new Phaser.Game(config);
 var goForward = false;
 var painting1 = 0;
+var speed = scenographyConfig.walkSpeed;
 
 function preload ()
 {
     this.load.image('chloe', 'assets/sprites/chloe1.png');
     this.load.image('background', 'assets/background1.jpg');
-
+    this.load.image('foule', 'assets/sprites/foule.png');
 }
 
 function create ()
 {
     this.cursors = this.input.keyboard.createCursorKeys();
+
 
     //BACKGROUND
     background = this.add.image(0, 0, 'background');
@@ -53,6 +55,13 @@ function create ()
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
 
+    //FOULE
+    foule = this.physics.add.image(background.displayWidth/3, window.innerHeight, 'foule');
+    foule.setOrigin(0, 1);
+
+    this.physics.add.overlap(chloe, foule, throughCrowd, null, this);
+
+
     //CAMERA
     this.cameras.main.setBounds(0, 0, background.displayWidth, window.innerHeight);
     this.physics.world.setBounds(0, 0, background.displayWidth, window.innerHeight);
@@ -64,14 +73,13 @@ function update () {
     if (!isPlaying) {
         return null;
     }
-
+    console.log(speed);
     if (goForward) {
-        chloe.x += scenographyConfig.walkSpeed * scenographyConfig.direction;
+        chloe.x += speed * scenographyConfig.direction;
     }
     if (chloe.x > background.displayWidth/2 && painting1 === 0) { //half of corridor 
         //await delay(5000); wait and animate somehow ?
         //camera tremble
-        this.cameras.main.shake(0.05, 500);
         showDialog('introduction1');
         ingameScreen.addEventListener('click', () => {
             showDialog('introduction2');
@@ -105,4 +113,9 @@ function endGame () {
     chloe.x = 200;
     scenographyConfig.direction = 1;  
 
+}
+
+function throughCrowd(chloe, foule) {
+    speed = scenographyConfig.crowdSpeed;
+    this.cameras.main.shake(7);
 }
