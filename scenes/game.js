@@ -32,22 +32,21 @@ var meetLily = false;
 
 function preload() {
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
-    this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 331, frameHeight: 360 });
+    this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 341, frameHeight: 382 });
     this.load.image('background', 'assets/ui/BG.png');
     this.load.image('foule', 'assets/sprites/foule.png');
     this.load.image('oeuvredepart', 'assets/ui/oeuvredépart.png');
     this.load.image('fenetre1', 'assets/ui/fenêtre1.png');
-    this.load.image('lionpeur', 'assets/ui/Lionpeur.png');
+    this.load.spritesheet('lion', 'assets/ui/Lion.png', { frameWidth: 1179, frameHeight: 856 });
     this.load.image('fenetre2', 'assets/ui/fenêtre.png');
-    this.load.image('enfant', 'assets/ui/Vierge_peur.png');
+    this.load.spritesheet('enfant', 'assets/ui/Vierge.png', { frameWidth: 736, frameHeight: 856 });
     this.load.image('statue1', 'assets/ui/statue.png');
-    this.load.image('vagues', 'assets/ui/bateaunormal.png');
+    this.load.spritesheet('vagues', 'assets/ui/Bateau.png', { frameWidth: 1490, frameHeight: 856 });
     this.load.image('statue2', 'assets/ui/Apollon.png');
 }
 
 function create() {
     this.cursors = this.input.keyboard.createCursorKeys();
-
 
     //BACKGROUND
 
@@ -57,6 +56,7 @@ function create() {
         background.displayHeight = window.innerHeight;
         background.scaleX = background.scaleY;
     }
+
     background = this.add.image(0, 0, 'background');
     background.setOrigin(0, 0);
     background.displayHeight = window.innerHeight;
@@ -73,10 +73,11 @@ function create() {
     Fenetre1.setOrigin(0, 0);
     Fenetre1.setScale(background.scaleX / 1.05);
 
-    //TABLEAU LION PEUR
-    lionpeur = this.physics.add.image(background.displayWidth * 2.3, window.innerHeight / 10, 'lionpeur');
-    lionpeur.setOrigin(0, 0);
-    lionpeur.setScale(background.scaleX / 1.1);
+    //TABLEAU LION
+    lion = this.physics.add.sprite(background.displayWidth * 2.3, window.innerHeight / 10, 'lion');
+    lion.setOrigin(0, 0);
+    lion.setScale(background.scaleX / 1.1);
+    lion.setTexture('lion', 1);
 
     //FENETRE2
     Fenetre2 = this.physics.add.image(background.displayWidth * 3.6, window.innerHeight / 7, 'fenetre2');
@@ -84,14 +85,16 @@ function create() {
     Fenetre2.setScale(background.scaleX / 1.05);
 
     //TABLEAU ENFANT
-    enfant = this.physics.add.image(background.displayWidth * 4.5, window.innerHeight / 10, 'enfant');
+    enfant = this.physics.add.sprite(background.displayWidth * 4.5, window.innerHeight / 10, 'enfant');
     enfant.setOrigin(0, 0);
     enfant.setScale(background.scaleX / 1.1);
+    enfant.setTexture('enfant', 1);
 
     //TABLEAU VAGUES
     vagues = this.physics.add.image(background.displayWidth * 6.2, window.innerHeight / 10, 'vagues');
     vagues.setOrigin(0, 0);
     vagues.setScale(background.scaleX / 1.1);
+    vagues.setTexture('vagues', 1);
 
     //CHLOE ANIMATION
     this.anims.create({
@@ -213,6 +216,14 @@ function update() {
 
     if (meetLily === true) { //suivre chloé
         lily.x = chloe.x - difference;
+    }
+
+    //DEMI-TOUR À LA FIN DU COULOIR
+    if (chloe.x > background.displayWidth * 8) {
+        scenographyConfig.direction = -1;
+        vagues.setTexture('vagues', 0);
+        enfant.setTexture('enfant', 0);
+        lion.setTexture('lion', 0);
     }
 
     //CHLOE RETROUVE SA MAMAN 

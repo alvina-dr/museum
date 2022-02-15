@@ -152,12 +152,16 @@ main section {
 }
 
 .endScreenBox {
-    margin-top: 40vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     text-align: center;
+}
+
+.endScreenBox img{
+    height: 40vh;
+    margin-bottom: 10vh;
 }
 
 .buttonBackMenu{
