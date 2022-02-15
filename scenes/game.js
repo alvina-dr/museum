@@ -31,7 +31,7 @@ function preload() {
 
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
     this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 341, frameHeight: 382 });
-    this.load.spritesheet('lilyIdle', 'assets/sprites/lilyIdle.png', { frameWidth: 341, frameHeight: 382 });
+    //this.load.spritesheet('lilyIdle', 'assets/sprites/lilyIdle.png', { frameWidth: 341, frameHeight: 382 });
     this.load.image('background', 'assets/ui/BG.png');
     this.load.image('foule', 'assets/sprites/foule.png');
     this.load.image('oeuvredepart', 'assets/ui/oeuvredépart.png');
@@ -100,7 +100,6 @@ function create() {
     chloe = this.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 4.95, 'chloe');
     chloe.setOrigin(0, 0);
     chloe.setScale(background.scaleX / 2);
-
     //CHLOE ANIMATION
     this.anims.create({
         key: 'walkChloe',
@@ -111,34 +110,20 @@ function create() {
         frameRate: 10,
         repeat: -1
     });
-
     this.anims.create({
         key: 'idleChloe',
         frames: [ { key: 'chloe', frame: 1 } ],
         frameRate: 10
     });
-
     //CHLOE MOVEMENT
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
-    this.input.justOn
-
-    // this.anims.create({
-    //     start: 1, 
-    //     end: 3,
-    //     prefix: 'lily/walk/', 
-    //     suffix: '.png',
-    //     key: 'walkLily',
-    //     frames: this.anims.generateFrameNumbers('chloe'),
-    //     frameRate: 10,
-    //     repeat: -1
-    // });
+    //this.input.justOn
 
     //LILY
     lily = this.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.85, 'lily');
     lily.setOrigin(0, 0);
     lily.setScale(background.scaleX / 2);
-    
     //LILY ANIMATION
     this.anims.create({
         key: 'walkLily',
@@ -148,9 +133,8 @@ function create() {
     });
     this.anims.create({
         key: 'idleLily',
-        frames: this.anims.generateFrameNumbers('lily'),
-        frameRate: 10,
-        repeat: -1
+        frames: [ { key: 'lily', frame: 2 } ],
+        frameRate: 10
     });
 
     //FOULE
@@ -198,18 +182,15 @@ function update() {
     if (goForward) {
         chloe.x += speed * scenographyConfig.direction;
         chloe.play("walkChloe", true);
-        //chloeAnimationWalk.play()
         if (meetLily === true) {
             lily.play("walkLily", true);
+        } else {
+            lily.play("idleLily", true);
         }
     }
     else {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
-        // chloe.play("walkChloe", false);
-        // lily.play("walkLily", false);
-        //chloe.anims.pause("walkChloe")
-        //chloeAnimationWalk.pause()
     }
 
     //CHECK SI CHLOÉ PASSE À TRAVERS LA FOULE
@@ -223,7 +204,7 @@ function update() {
 
 //PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
     if (chloe.x > totalBackgroundLength/2 && painting1 === 0) {
-        chloe.play("idleChloe");
+        //chloe.play("idleChloe");
         showDialog('introduction1');
         ingameScreen.addEventListener('click', () => {
             showDialog('introduction2');
@@ -241,7 +222,6 @@ function update() {
 
 //ARRIVÉ DEVANT LILY
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
-        //chloe.play("idleChloe", true);
         showDialog('meetLily1');
         ingameScreen.addEventListener('click', () => {
             showDialog('meetLily2');
@@ -280,7 +260,6 @@ function update() {
 //MES FONCTIONS -----------------------------------------------------------------------------------------------------------------
 
 function endGame() { //FIN DU JEU
-    isPlaying = false;
     switchScreen(ingameScreen, endScreen);
     //set all values back to zero to cleanly restart the game
     painting1 = 0;
@@ -288,6 +267,8 @@ function endGame() { //FIN DU JEU
     scenographyConfig.direction = 1;
     meetLily = false;
     lily.x = totalBackgroundLength / 10 * 9;
+    isPlaying = false;
+
 }
 
 function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
@@ -308,4 +289,11 @@ function animateLily() {
         lily.play("idleLily", true);
 
     }
+}
+
+function showDialogs() {
+    //show first dialog
+    //check if click
+        //if there is another dialog then show other dialog
+        //else close dialog
 }
