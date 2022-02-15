@@ -32,7 +32,7 @@ var meetLily = false;
 
 function preload() {
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
-    this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 331, frameHeight: 360 });
+    this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 341, frameHeight: 382 });
     this.load.image('background', 'assets/ui/BG.png');
     this.load.image('foule', 'assets/sprites/foule.png');
     this.load.image('oeuvredepart', 'assets/ui/oeuvredépart.png');
@@ -221,6 +221,9 @@ function update() {
     //DEMI-TOUR À LA FIN DU COULOIR
     if (chloe.x > background.displayWidth * 8) {
         scenographyConfig.direction = -1;
+        vagues.setTexture('vagues', 0);
+        enfant.setTexture('enfant', 0);
+        lion.setTexture('lion', 0);
     }
 
     //CHLOE RETROUVE SA MAMAN 
