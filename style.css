@@ -4,7 +4,8 @@
 @font-face {
     font-family: 'WhatnotW00-Regular';
     src: url('/assets/fonts/Whatnot\ W00\ Regular.otf');
-    src: url('/assets/fonts/Whatnot\ W00\ Regular.ttf');
+    src: url('/assets/fonts/Whatnot\ W00\ Regular.ttf') format('truetype'), /* Safari, Android, iOS */
+
   }
 
 body {
