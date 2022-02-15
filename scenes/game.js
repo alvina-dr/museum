@@ -203,21 +203,16 @@ function update() {
                 ingameScreen.addEventListener('click', () => {
                     showDialog('meetLily4');
                     ingameScreen.addEventListener('click', () => {
+                        scenographyConfig.direction = -1;
                         dialogBox.style.display = "none";
-                        isPlaying = true;
-                        meetLily = true;
+                        timer = setInterval(animateLily, 10);
                     });
                 });
             });
         });}
 
     if (meetLily === true) { //suivre chloé
-        lily.x = chloe.x + 90 * scenographyConfig.direction;
-    }
-
-    //DEMI-TOUR À LA FIN DU COULOIR
-    if (chloe.x > background.displayWidth * 8) {
-        scenographyConfig.direction = -1;
+        lily.x = chloe.x - difference;
     }
 
     //CHLOE RETROUVE SA MAMAN 
@@ -245,4 +240,16 @@ function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
     var boundsA = spriteA.getBounds();
     var boundsB = spriteB.getBounds();
     return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
+}
+
+
+function animateLily() {
+    lily.x = lily.x - 1; //lily avance de 1 vers la gauche
+    console.log("dans la fonction animate lily");
+    if (lily.x < chloe.x - 60) {
+        clearInterval(timer);
+        isPlaying = true;
+        meetLily = true;
+        difference = chloe.x - lily.x;
+    }
 }
