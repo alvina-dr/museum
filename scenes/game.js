@@ -5,12 +5,6 @@ var config = {
     type: Phaser.AUTO,
     width: window.innerWidth,
     height: window.innerHeight,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 0 }
-        }
-    },
     scene: {
         preload: preload,
         create: create,
@@ -29,6 +23,7 @@ var goForward = false;
 var painting1 = 0;
 var speed = scenographyConfig.walkSpeed;
 var meetLily = false;
+var chloeAnimationWalk = null;
 
 function preload() {
     /*this.load.atlasJSONHash;
@@ -36,6 +31,7 @@ function preload() {
 
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
     this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 341, frameHeight: 382 });
+    this.load.spritesheet('lilyIdle', 'assets/sprites/lilyIdle.png', { frameWidth: 341, frameHeight: 382 });
     this.load.image('background', 'assets/ui/BG.png');
     this.load.image('foule', 'assets/sprites/foule.png');
     this.load.image('oeuvredepart', 'assets/ui/oeuvredépart.png');
@@ -67,55 +63,66 @@ function create() {
     totalBackgroundLength = background.displayWidth * 9; //LA LONGUEUR TOTAL DU BACKGROUND (en fonction de la hauteur de l'écran)
 
     //TABLEAU DÉPART
-    oeuvredepart = this.physics.add.image(background.displayWidth * 0, window.innerHeight / 10, 'oeuvredepart');
+    oeuvredepart = this.add.image(background.displayWidth * 0, window.innerHeight / 10, 'oeuvredepart');
     oeuvredepart.setOrigin(0, 0);
     oeuvredepart.setScale(background.scaleX / 1.1);
 
     //FENETRE1
-    Fenetre1 = this.physics.add.image(background.displayWidth * 1.2, window.innerHeight / 7, 'fenetre1');
+    Fenetre1 = this.add.image(background.displayWidth * 1.2, window.innerHeight / 7, 'fenetre1');
     Fenetre1.setOrigin(0, 0);
     Fenetre1.setScale(background.scaleX / 1.05);
 
     //TABLEAU LION
-    lion = this.physics.add.sprite(background.displayWidth * 2.3, window.innerHeight / 10, 'lion');
+    lion = this.add.sprite(background.displayWidth * 2.3, window.innerHeight / 10, 'lion');
     lion.setOrigin(0, 0);
     lion.setScale(background.scaleX / 1.1);
     lion.setTexture('lion', 1);
 
     //FENETRE2
-    Fenetre2 = this.physics.add.image(background.displayWidth * 3.6, window.innerHeight / 7, 'fenetre2');
+    Fenetre2 = this.add.image(background.displayWidth * 3.6, window.innerHeight / 7, 'fenetre2');
     Fenetre2.setOrigin(0, 0);
     Fenetre2.setScale(background.scaleX / 1.05);
 
     //TABLEAU ENFANT
-    enfant = this.physics.add.sprite(background.displayWidth * 4.5, window.innerHeight / 10, 'enfant');
+    enfant = this.add.sprite(background.displayWidth * 4.5, window.innerHeight / 10, 'enfant');
     enfant.setOrigin(0, 0);
     enfant.setScale(background.scaleX / 1.1);
     enfant.setTexture('enfant', 1);
 
     //TABLEAU VAGUES
-    vagues = this.physics.add.image(background.displayWidth * 6.2, window.innerHeight / 10, 'vagues');
+    vagues = this.add.image(background.displayWidth * 6.2, window.innerHeight / 10, 'vagues');
     vagues.setOrigin(0, 0);
     vagues.setScale(background.scaleX / 1.1);
     vagues.setTexture('vagues', 1);
 
+
+    //CHLOE
+    chloe = this.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 4.95, 'chloe');
+    chloe.setOrigin(0, 0);
+    chloe.setScale(background.scaleX / 2);
+
     //CHLOE ANIMATION
     this.anims.create({
         key: 'walkChloe',
-        frames: this.anims.generateFrameNumbers('chloe'),
+        frames: this.anims.generateFrameNumbers('chloe', {
+            start: 0,
+            end: 3
+        }),
         frameRate: 10,
         repeat: -1
     });
-    //CHLOE
-    chloe = this.physics.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 4.95, 'chloe');
-    chloe.setOrigin(0, 0);
-    chloe.setScale(background.scaleX / 2);
+
+    this.anims.create({
+        key: 'idleChloe',
+        frames: [ { key: 'chloe', frame: 1 } ],
+        frameRate: 10
+    });
 
     //CHLOE MOVEMENT
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
+    this.input.justOn
 
-    //LILY ANIMATION
     // this.anims.create({
     //     start: 1, 
     //     end: 3,
@@ -126,35 +133,44 @@ function create() {
     //     frameRate: 10,
     //     repeat: -1
     // });
+
+    //LILY
+    lily = this.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.85, 'lily');
+    lily.setOrigin(0, 0);
+    lily.setScale(background.scaleX / 2);
+    
+    //LILY ANIMATION
     this.anims.create({
         key: 'walkLily',
         frames: this.anims.generateFrameNumbers('lily'),
         frameRate: 10,
         repeat: -1
     });
-    //LILY
-    lily = this.physics.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.85, 'lily');
-    lily.setOrigin(0, 0);
-    lily.setScale(background.scaleX / 2);
+    this.anims.create({
+        key: 'idleLily',
+        frames: this.anims.generateFrameNumbers('lily'),
+        frameRate: 10,
+        repeat: -1
+    });
 
     //FOULE
-    foule = this.physics.add.image(background.displayWidth * 1.1, window.innerHeight / 1.85, 'foule');
+    foule = this.add.image(background.displayWidth * 1.1, window.innerHeight / 1.85, 'foule');
     foule.setOrigin(0, 0);
     foule.setScale(background.scaleX / 1.6);
 
     //STATUE1
-    statue1 = this.physics.add.image(background.displayWidth * 3.8, window.innerHeight / 5, 'statue1');
+    statue1 = this.add.image(background.displayWidth * 3.8, window.innerHeight / 5, 'statue1');
     statue1.setOrigin(0, 0);
     statue1.setScale(background.scaleX / 1.05);
 
     //STATUE2
-    statue2 = this.physics.add.image(background.displayWidth * 5.4, window.innerHeight / 5, 'statue2');
+    statue2 = this.add.image(background.displayWidth * 5.4, window.innerHeight / 5, 'statue2');
     statue2.setOrigin(0, 0);
     statue2.setScale(background.scaleX / 1.05);
 
     //CAMERA
     this.cameras.main.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
-    this.physics.world.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
+    //this.physics.world.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
     this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
 
 }
@@ -182,16 +198,18 @@ function update() {
     if (goForward) {
         chloe.x += speed * scenographyConfig.direction;
         chloe.play("walkChloe", true);
+        //chloeAnimationWalk.play()
         if (meetLily === true) {
             lily.play("walkLily", true);
         }
     }
     else {
-
         chloe.play("idleChloe", true);
-        lily.play("idleChloe", true);
-        chloe.play("walkChloe", false);
-        lily.play("walkLily", false);
+        lily.play("idleLily", true);
+        // chloe.play("walkChloe", false);
+        // lily.play("walkLily", false);
+        //chloe.anims.pause("walkChloe")
+        //chloeAnimationWalk.pause()
     }
 
     //CHECK SI CHLOÉ PASSE À TRAVERS LA FOULE
@@ -205,11 +223,11 @@ function update() {
 
 //PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
     if (chloe.x > totalBackgroundLength/2 && painting1 === 0) {
-        //await delay(5000); wait and animate somehow ?
-        chloe.play("idleChloe", true);
+        chloe.play("idleChloe");
         showDialog('introduction1');
         ingameScreen.addEventListener('click', () => {
             showDialog('introduction2');
+            console.log('oh')
             ingameScreen.addEventListener('click', () => {
                 showDialog('introduction3');
                 ingameScreen.addEventListener('click', () => {
@@ -223,7 +241,7 @@ function update() {
 
 //ARRIVÉ DEVANT LILY
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
-        chloe.play("idleChloe", true);
+        //chloe.play("idleChloe", true);
         showDialog('meetLily1');
         ingameScreen.addEventListener('click', () => {
             showDialog('meetLily2');
@@ -287,7 +305,7 @@ function animateLily() {
         isPlaying = true;
         meetLily = true;
         difference = chloe.x - lily.x;
-        lily.play("idleLily", false);
+        lily.play("idleLily", true);
 
     }
 }
