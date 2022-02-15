@@ -268,9 +268,9 @@ function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
 
 function animateLily() {
     lily.x = lily.x - 1; //lily avance de 1 vers la gauche
+    lily.play("walkLily", true);
     console.log("dans la fonction animate lily");
     if (lily.x < chloe.x - innerWidth / 15) {
-        lily.play("walkLily", true);
         clearInterval(timer);
         isPlaying = true;
         meetLily = true;
