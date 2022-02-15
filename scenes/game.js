@@ -61,7 +61,7 @@ function create() {
     background.setOrigin(0, 0);
     background.displayHeight = window.innerHeight;
     background.scaleX = background.scaleY;
-    totalBackgroundLength = background.displayWidth * 10; //LA LONGUEUR TOTAL DU BACKGROUND (en fonction de la hauteur de l'écran)
+    totalBackgroundLength = background.displayWidth * 9; //LA LONGUEUR TOTAL DU BACKGROUND (en fonction de la hauteur de l'écran)
 
     //TABLEAU DÉPART
     oeuvredepart = this.physics.add.image(background.displayWidth * 0, window.innerHeight / 10, 'oeuvredepart');
