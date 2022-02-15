@@ -28,6 +28,7 @@ var game = new Phaser.Game(config);
 var goForward = false;
 var painting1 = 0;
 var speed = scenographyConfig.walkSpeed;
+var meetLily = false;
 
 function preload ()
 {
@@ -71,11 +72,9 @@ function create() {
     this.input.on('pointerup', () => goForward = false);
 
     //LILY
-    lily = this.physics.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 5, 'lily');
+    lily = this.physics.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.95, 'lily');
     lily.setOrigin(0, 0);
     lily.setScale(background.scaleX / 2);
-
-
 
     //FOULE
     foule = this.physics.add.image(totalBackgroundLength/3, window.innerHeight / 2, 'foule');
@@ -98,8 +97,14 @@ function update() {
 //ORIENTATION DU SPRITE
     if (scenographyConfig.direction === -1) { 
         chloe.flipX=true;
+        lily.flipX=true;
     } else {
         chloe.flipX=false;
+        if (meetLily === false) {
+            lily.flipX=true;
+        } else {
+            lily.flipX=false;
+        }
     }
     
 //AVANCER
@@ -121,7 +126,7 @@ function update() {
         speed = scenographyConfig.walkSpeed;
     }
 
-    //PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
+//PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
     if (chloe.x > totalBackgroundLength/2 && painting1 === 0) {
         //await delay(5000); wait and animate somehow ?
         chloe.play("idle", true);
@@ -137,6 +142,29 @@ function update() {
                 });
             });
         });
+    }
+
+//ARRIVÉ DEVANT LILY
+    if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
+        chloe.play("idle", true);
+        showDialog('meetLily1');
+        ingameScreen.addEventListener('click', () => {
+            showDialog('meetLily2');
+            ingameScreen.addEventListener('click', () => {
+                showDialog('meetLily3');
+                ingameScreen.addEventListener('click', () => {
+                    showDialog('meetLily4');
+                    ingameScreen.addEventListener('click', () => {
+                        dialogBox.style.display = "none";
+                        isPlaying = true;
+                        meetLily = true;
+                    });
+                });
+            });
+        });}
+
+    if (meetLily === true) { //suivre chloé
+        lily.x = chloe.x + 90 * scenographyConfig.direction;
     }
 
     //DEMI-TOUR À LA FIN DU COULOIR
@@ -161,6 +189,8 @@ function endGame() { //FIN DU JEU
     painting1 = 0;
     chloe.x = 200;
     scenographyConfig.direction = 1;
+    meetLily = false;
+    lily.x = totalBackgroundLength / 10 * 9;
 }
 
 function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES

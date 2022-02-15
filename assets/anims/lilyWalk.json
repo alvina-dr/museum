@@ -1,0 +1,83 @@
+{
+	"textures": [
+		{
+			"image": "lilyWalk.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 1023,
+				"h": 382
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "Lily3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 339,
+						"h": 380
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 339,
+						"h": 380
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 339,
+						"h": 380
+					}
+				},
+				{
+					"filename": "Lily1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 339,
+						"h": 374
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 339,
+						"h": 374
+					},
+					"frame": {
+						"x": 342,
+						"y": 1,
+						"w": 339,
+						"h": 374
+					}
+				},
+				{
+					"filename": "Lily2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 339,
+						"h": 374
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 339,
+						"h": 374
+					},
+					"frame": {
+						"x": 683,
+						"y": 1,
+						"w": 339,
+						"h": 374
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:f163451f43765041dc205e8d8ebbfcca:a892586f5c9498785c6e3161c1326d74:9eb0864ce9e11e3781d21baaf9f6f537$"
+	}
+}
