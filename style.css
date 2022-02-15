@@ -1,11 +1,13 @@
 /*police import*/
 @import url(//db.onlinewebfonts.com/c/0841832efbb3901931dccd608ef8e051?family=WhatnotW00-Regular);
 
-@font-face {
-    font-family: 'WhatnotW00-Regular';
-    src: url('/assets/fonts/Whatnot\ W00\ Regular.otf');
-    src: url('/assets/fonts/Whatnot\ W00\ Regular.ttf') format('truetype'), /* Safari, Android, iOS */
-
+@font-face {font-family: "WhatnotW00-Regular"; 
+    src: url("/assets/fonts/0841832efbb3901931dccd608ef8e051.eot"); /* IE9*/
+    src: url("/assets/fonts/0841832efbb3901931dccd608ef8e051.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("/assets/fonts/0841832efbb3901931dccd608ef8e051.woff2") format("woff2"), /* chrome、firefox */
+    url("/assets/fonts/0841832efbb3901931dccd608ef8e051.woff") format("woff"), /* chrome、firefox */
+    url("/assets/fonts/0841832efbb3901931dccd608ef8e051.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url("/assets/fonts/0841832efbb3901931dccd608ef8e051.svg#Whatnot W00 Regular") format("svg"); /* iOS 4.1- */
   }
 
 body {
