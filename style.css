@@ -100,9 +100,14 @@ main section {
     margin: 0 15vw;
 }
 
+.credit-titre {
+    padding: 2vh;
+    font-weight: bold;
+    font-size:24px;
+}
+
 .credit {
     padding: 2vh;
-    margin-left: 20vw;
 }
 
 .topcredits {
@@ -119,7 +124,6 @@ main section {
 
 #dialogBox {
     display: none;
-
     background-color: #132A2E;
     color: #EEEEEE;
     border-radius: 1vh;
@@ -179,4 +183,10 @@ button {
     font-family: "WhatnotW00-Regular";
     background-color: transparent;
     border: 0;
+}
+
+.space {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
 }
