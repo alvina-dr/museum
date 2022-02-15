@@ -113,7 +113,10 @@ main section {
     padding: 2vh;
     font-weight: bold;
     font-size:24px;
+    list-style: none;
 }
+
+
 
 .credit {
     padding: 2vh;
@@ -198,4 +201,14 @@ button {
     display: flex;
     justify-content: space-between;
     margin-top: 5%;
+    flex-direction: row;
+}
+
+@media screen and (max-device-width: 800px) {
+    #credits {
+        height: fit-content;
+    }
+    .space {
+        flex-direction: column;
+    }
 }
