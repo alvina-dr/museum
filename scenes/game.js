@@ -31,6 +31,7 @@ var speed = scenographyConfig.walkSpeed;
 
 function preload() {
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
+    this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 331, frameHeight: 360 });
     this.load.image('background', 'assets/ui/BG.png');
     this.load.image('foule', 'assets/sprites/foule.png');
     this.load.image('oeuvredepart', 'assets/ui/oeuvredépart.png');
@@ -59,6 +60,7 @@ function create() {
     background.setOrigin(0, 0);
     background.displayHeight = window.innerHeight;
     background.scaleX = background.scaleY;
+    totalBackgroundLength = background.displayWidth * 10; //LA LONGUEUR TOTAL DU BACKGROUND (en fonction de la hauteur de l'écran)
 
     //TABLEAU DÉPART
     oeuvredepart = this.physics.add.image(background.displayWidth * 0, window.innerHeight / 10, 'oeuvredepart');
@@ -68,7 +70,7 @@ function create() {
     //FENETRE1
     Fenetre1 = this.physics.add.image(background.displayWidth * 1.2, window.innerHeight / 7, 'fenetre1');
     Fenetre1.setOrigin(0, 0);
-    Fenetre1.setScale(background.scaleX/1.05);
+    Fenetre1.setScale(background.scaleX / 1.05);
 
     //TABLEAU LION PEUR
     lionpeur = this.physics.add.image(background.displayWidth * 2.3, window.innerHeight / 10, 'lionpeur');
@@ -78,7 +80,7 @@ function create() {
     //FENETRE2
     Fenetre2 = this.physics.add.image(background.displayWidth * 3.6, window.innerHeight / 7, 'fenetre2');
     Fenetre2.setOrigin(0, 0);
-    Fenetre2.setScale(background.scaleX/1.05);
+    Fenetre2.setScale(background.scaleX / 1.05);
 
     //TABLEAU ENFANT
     enfant = this.physics.add.image(background.displayWidth * 4.5, window.innerHeight / 10, 'enfant');
@@ -107,10 +109,10 @@ function create() {
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
 
-    //CAMERA
-    this.cameras.main.setBounds(0, 0, background.displayWidth * 10, window.innerHeight);
-    this.physics.world.setBounds(0, 0, background.displayWidth * 10, window.innerHeight);
-    this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
+    //LILY
+    lily = this.physics.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 5, 'lily');
+    lily.setOrigin(0, 0);
+    lily.setScale(background.scaleX / 2);
 
     //FOULE
     foule = this.physics.add.image(background.displayWidth * 1.1, window.innerHeight / 1.85, 'foule');
@@ -120,12 +122,17 @@ function create() {
     //STATUE1
     statue1 = this.physics.add.image(background.displayWidth * 3.8, window.innerHeight / 5, 'statue1');
     statue1.setOrigin(0, 0);
-    statue1.setScale(background.scaleX/1.05);
+    statue1.setScale(background.scaleX / 1.05);
 
-    //STATUE1
+    //STATUE2
     statue2 = this.physics.add.image(background.displayWidth * 5.4, window.innerHeight / 5, 'statue2');
     statue2.setOrigin(0, 0);
-    statue2.setScale(background.scaleX/1.05);
+    statue2.setScale(background.scaleX / 1.05);
+
+    //CAMERA
+    this.cameras.main.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
+    this.physics.world.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
+    this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
 
 }
 
@@ -161,7 +168,7 @@ function update() {
     }
 
     //PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
-    if (chloe.x > background.displayWidth * 5 && painting1 === 0) {
+    if (chloe.x > totalBackgroundLength / 2 && painting1 === 0) {
         //await delay(5000); wait and animate somehow ?
         chloe.play("idle", true);
         showDialog('introduction1');
