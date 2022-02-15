@@ -1,7 +1,7 @@
 {
 	"textures": [
 		{
-			"image": "lilyWalk.png",
+			"image": "lily.png",
 			"format": "RGBA8888",
 			"size": {
 				"w": 1023,

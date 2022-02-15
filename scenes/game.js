@@ -31,6 +31,9 @@ var speed = scenographyConfig.walkSpeed;
 var meetLily = false;
 
 function preload() {
+    /*this.load.atlasJSONHash;
+    this.load.multiatlas('lily', 'assets/anims/lily.json', 'assets/anims');*/
+
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
     this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 341, frameHeight: 382 });
     this.load.image('background', 'assets/ui/BG.png');
@@ -126,6 +129,16 @@ function create() {
     this.input.on('pointerup', () => goForward = false);
 
     //LILY ANIMATION
+    // this.anims.create({
+    //     start: 1, 
+    //     end: 3,
+    //     prefix: 'lily/walk/', 
+    //     suffix: '.png',
+    //     key: 'walkLily',
+    //     frames: this.anims.generateFrameNumbers('chloe'),
+    //     frameRate: 10,
+    //     repeat: -1
+    // });
     this.anims.create({
         key: 'walkLily',
         frames: this.anims.generateFrameNumbers('lily'),
@@ -161,7 +174,7 @@ function create() {
 }
 
 function update() {
-    //GAME IS PLAYING
+//GAME IS PLAYING
     if (!isPlaying) {
         return null;
     }
@@ -284,7 +297,6 @@ function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
 function animateLily() {
     lily.x = lily.x - 1; //lily avance de 1 vers la gauche
     lily.play("walkLily", true);
-    console.log("dans la fonction animate lily");
     if (lily.x < chloe.x - innerWidth / 15) {
         clearInterval(timer);
         isPlaying = true;
