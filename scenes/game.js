@@ -43,6 +43,8 @@ function preload() {
     this.load.image('statue1', 'assets/ui/statue.png');
     this.load.spritesheet('vagues', 'assets/ui/Bateau.png', { frameWidth: 1490, frameHeight: 856 });
     this.load.image('statue2', 'assets/ui/Apollon.png');
+    this.load.image('maman', 'assets/sprites/Maman2.png');
+    // this.load.image('vignette', 'assets/images.jpg');
 }
 
 function create() {
@@ -62,6 +64,11 @@ function create() {
     background.displayHeight = window.innerHeight;
     background.scaleX = background.scaleY;
     totalBackgroundLength = background.displayWidth * 9; //LA LONGUEUR TOTAL DU BACKGROUND (en fonction de la hauteur de l'écran)
+
+    // vignette = this.physics.add.image(0, 0, 'vignette');
+    // vignette.setOrigin(0, 0);
+    // vignette.setScale(background.scaleX * 10);
+    // vignette.setAlpha(0.5);
 
     //TABLEAU DÉPART
     oeuvredepart = this.physics.add.image(background.displayWidth * 0, window.innerHeight / 10, 'oeuvredepart');
@@ -103,6 +110,12 @@ function create() {
         frameRate: 10,
         repeat: -1
     });
+
+    //MAMAN
+    maman = this.physics.add.sprite(window.innerWidth / 11, window.innerHeight / 6 * 4.5, 'maman');
+    maman.setOrigin(0, 0);
+    maman.setScale(background.scaleX / 1.75);
+
     //CHLOE
     chloe = this.physics.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 4.95, 'chloe');
     chloe.setOrigin(0, 0);
@@ -143,6 +156,7 @@ function create() {
     this.cameras.main.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
     this.physics.world.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
     this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
+    // vignette.startFollow(chloe, true, 0.05, 0.05);
 
 }
 
@@ -152,16 +166,16 @@ function update() {
         return null;
     }
 
-//ORIENTATION DU SPRITE
-    if (scenographyConfig.direction === -1) { 
-        chloe.flipX=true;
-        lily.flipX=true;
+    //ORIENTATION DU SPRITE
+    if (scenographyConfig.direction === -1) {
+        chloe.flipX = true;
+        lily.flipX = true;
     } else {
-        chloe.flipX=false;
+        chloe.flipX = false;
         if (meetLily === false) {
-            lily.flipX=true;
+            lily.flipX = true;
         } else {
-            lily.flipX=false;
+            lily.flipX = false;
         }
     }
 
@@ -190,8 +204,8 @@ function update() {
         speed = scenographyConfig.walkSpeed;
     }
 
-//PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
-    if (chloe.x > totalBackgroundLength/2 && painting1 === 0) {
+    //PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
+    if (chloe.x > totalBackgroundLength / 2 && painting1 === 0) {
         //await delay(5000); wait and animate somehow ?
         chloe.play("idleChloe", true);
         showDialog('introduction1');
@@ -208,7 +222,7 @@ function update() {
         });
     }
 
-//ARRIVÉ DEVANT LILY
+    //ARRIVÉ DEVANT LILY
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
         chloe.play("idleChloe", true);
         showDialog('meetLily1');
@@ -225,7 +239,8 @@ function update() {
                     });
                 });
             });
-        });}
+        });
+    }
 
     if (meetLily === true) { //suivre chloé
         lily.x = chloe.x - difference;
