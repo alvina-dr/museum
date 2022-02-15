@@ -31,6 +31,9 @@ var speed = scenographyConfig.walkSpeed;
 var meetLily = false;
 
 function preload() {
+    /*this.load.atlasJSONHash;
+    this.load.multiatlas('lily', 'assets/anims/lily.json', 'assets/anims');*/
+
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
     this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 341, frameHeight: 382 });
     this.load.image('background', 'assets/ui/BG.png');
@@ -113,6 +116,16 @@ function create() {
     this.input.on('pointerup', () => goForward = false);
 
     //LILY ANIMATION
+    // this.anims.create({
+    //     start: 1, 
+    //     end: 3,
+    //     prefix: 'lily/walk/', 
+    //     suffix: '.png',
+    //     key: 'walkLily',
+    //     frames: this.anims.generateFrameNumbers('chloe'),
+    //     frameRate: 10,
+    //     repeat: -1
+    // });
     this.anims.create({
         key: 'walkLily',
         frames: this.anims.generateFrameNumbers('lily'),
@@ -120,7 +133,7 @@ function create() {
         repeat: -1
     });
     //LILY
-    lily = this.physics.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.95, 'lily');
+    lily = this.physics.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.85, 'lily');
     lily.setOrigin(0, 0);
     lily.setScale(background.scaleX / 2);
 
@@ -147,7 +160,7 @@ function create() {
 }
 
 function update() {
-    //GAME IS PLAYING
+//GAME IS PLAYING
     if (!isPlaying) {
         return null;
     }
@@ -229,14 +242,14 @@ function update() {
 
     if (meetLily === true) { //suivre chloé
         lily.x = chloe.x - difference;
+        vagues.setTexture('vagues', 0);
+        enfant.setTexture('enfant', 0);
+        lion.setTexture('lion', 0);
     }
 
     //DEMI-TOUR À LA FIN DU COULOIR
     if (chloe.x > background.displayWidth * 8) {
         scenographyConfig.direction = -1;
-        vagues.setTexture('vagues', 0);
-        enfant.setTexture('enfant', 0);
-        lion.setTexture('lion', 0);
     }
 
     //CHLOE RETROUVE SA MAMAN 
@@ -269,7 +282,7 @@ function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
 function animateLily() {
     lily.x = lily.x - 1; //lily avance de 1 vers la gauche
     lily.play("walkLily", true);
-    if (lily.x < chloe.x - 60) {
+    if (lily.x < chloe.x - innerWidth / 15) {
         clearInterval(timer);
         isPlaying = true;
         meetLily = true;
