@@ -114,7 +114,7 @@ function create() {
     this.input.on('pointerup', () => goForward = false);
 
     //LILY
-    lily = this.physics.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.95, 'lily');
+    lily = this.physics.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.85, 'lily');
     lily.setOrigin(0, 0);
     lily.setScale(background.scaleX / 2);
 
@@ -216,14 +216,14 @@ function update() {
 
     if (meetLily === true) { //suivre chloé
         lily.x = chloe.x - difference;
+        vagues.setTexture('vagues', 0);
+        enfant.setTexture('enfant', 0);
+        lion.setTexture('lion', 0);
     }
 
     //DEMI-TOUR À LA FIN DU COULOIR
     if (chloe.x > background.displayWidth * 8) {
         scenographyConfig.direction = -1;
-        vagues.setTexture('vagues', 0);
-        enfant.setTexture('enfant', 0);
-        lion.setTexture('lion', 0);
     }
 
     //CHLOE RETROUVE SA MAMAN 
@@ -257,7 +257,7 @@ function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
 function animateLily() {
     lily.x = lily.x - 1; //lily avance de 1 vers la gauche
     console.log("dans la fonction animate lily");
-    if (lily.x < chloe.x - 60) {
+    if (lily.x < chloe.x - innerWidth / 15) {
         clearInterval(timer);
         isPlaying = true;
         meetLily = true;
