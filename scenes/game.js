@@ -98,12 +98,11 @@ function create() {
 
     //CHLOE ANIMATION
     this.anims.create({
-        key: 'walk',
+        key: 'walkChloe',
         frames: this.anims.generateFrameNumbers('chloe'),
         frameRate: 10,
         repeat: -1
     });
-
     //CHLOE
     chloe = this.physics.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 4.95, 'chloe');
     chloe.setOrigin(0, 0);
@@ -113,6 +112,13 @@ function create() {
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
 
+    //LILY ANIMATION
+    this.anims.create({
+        key: 'walkLily',
+        frames: this.anims.generateFrameNumbers('lily'),
+        frameRate: 10,
+        repeat: -1
+    });
     //LILY
     lily = this.physics.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.85, 'lily');
     lily.setOrigin(0, 0);
@@ -162,10 +168,17 @@ function update() {
     //AVANCER
     if (goForward) {
         chloe.x += speed * scenographyConfig.direction;
-        chloe.play("walk", true);
+        chloe.play("walkChloe", true);
+        if (meetLily === true) {
+            lily.play("walkLily", true);
+        }
     }
     else {
-        chloe.play("idle", true);
+
+        chloe.play("idleChloe", true);
+        lily.play("idleChloe", true);
+        chloe.play("walkChloe", false);
+        lily.play("walkLily", false);
     }
 
     //CHECK SI CHLOÉ PASSE À TRAVERS LA FOULE
@@ -180,7 +193,7 @@ function update() {
 //PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
     if (chloe.x > totalBackgroundLength/2 && painting1 === 0) {
         //await delay(5000); wait and animate somehow ?
-        chloe.play("idle", true);
+        chloe.play("idleChloe", true);
         showDialog('introduction1');
         ingameScreen.addEventListener('click', () => {
             showDialog('introduction2');
@@ -197,7 +210,7 @@ function update() {
 
 //ARRIVÉ DEVANT LILY
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
-        chloe.play("idle", true);
+        chloe.play("idleChloe", true);
         showDialog('meetLily1');
         ingameScreen.addEventListener('click', () => {
             showDialog('meetLily2');
@@ -229,7 +242,6 @@ function update() {
     //CHLOE RETROUVE SA MAMAN 
     if (chloe.x < 100 && scenographyConfig.direction === -1) {
         endGame();
-
     }
 }
 
@@ -258,9 +270,12 @@ function animateLily() {
     lily.x = lily.x - 1; //lily avance de 1 vers la gauche
     console.log("dans la fonction animate lily");
     if (lily.x < chloe.x - innerWidth / 15) {
+        lily.play("walkLily", true);
         clearInterval(timer);
         isPlaying = true;
         meetLily = true;
         difference = chloe.x - lily.x;
+        lily.play("idleLily", false);
+
     }
 }
