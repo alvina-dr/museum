@@ -3,7 +3,7 @@ var quotes = [
     "Comment appelle-t-on un ghetto en Italie ? Un spaghetto.",
     "Pierre qui roule n'amasse pas de capital financier.",
     "Cyril",
-    "Maurine",
+    "Les prix ont augmenté, les billets sont passés à 28€",
     "Pauline",
 ]
 var author = [
