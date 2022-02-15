@@ -29,11 +29,18 @@ var goForward = false;
 var painting1 = 0;
 var speed = scenographyConfig.walkSpeed;
 
-function preload ()
-{
+function preload() {
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
     this.load.image('background', 'assets/ui/BG.png');
     this.load.image('foule', 'assets/sprites/foule.png');
+    this.load.image('oeuvredepart', 'assets/ui/oeuvredépart.png');
+    this.load.image('fenetre1', 'assets/ui/fenêtre1.png');
+    this.load.image('lionpeur', 'assets/ui/Lionpeur.png');
+    this.load.image('fenetre2', 'assets/ui/fenêtre.png');
+    this.load.image('enfant', 'assets/ui/Vierge_peur.png');
+    this.load.image('statue1', 'assets/ui/statue.png');
+    this.load.image('vagues', 'assets/ui/bateaunormal.png');
+    this.load.image('statue2', 'assets/ui/Apollon.png');
 }
 
 function create() {
@@ -43,7 +50,7 @@ function create() {
     //BACKGROUND
 
     for (let i = 0; i < 50; i++) {
-        background = this.add.image(i*400, 0, 'background');
+        background = this.add.image(i * 400, 0, 'background');
         background.setOrigin(0, 0);
         background.displayHeight = window.innerHeight;
         background.scaleX = background.scaleY;
@@ -53,6 +60,36 @@ function create() {
     background.displayHeight = window.innerHeight;
     background.scaleX = background.scaleY;
 
+    //TABLEAU DÉPART
+    oeuvredepart = this.physics.add.image(background.displayWidth * 0, window.innerHeight / 10, 'oeuvredepart');
+    oeuvredepart.setOrigin(0, 0);
+    oeuvredepart.setScale(background.scaleX / 1.1);
+
+    //FENETRE1
+    Fenetre1 = this.physics.add.image(background.displayWidth * 1.2, window.innerHeight / 7, 'fenetre1');
+    Fenetre1.setOrigin(0, 0);
+    Fenetre1.setScale(background.scaleX/1.05);
+
+    //TABLEAU LION PEUR
+    lionpeur = this.physics.add.image(background.displayWidth * 2.3, window.innerHeight / 10, 'lionpeur');
+    lionpeur.setOrigin(0, 0);
+    lionpeur.setScale(background.scaleX / 1.1);
+
+    //FENETRE2
+    Fenetre2 = this.physics.add.image(background.displayWidth * 3.6, window.innerHeight / 7, 'fenetre2');
+    Fenetre2.setOrigin(0, 0);
+    Fenetre2.setScale(background.scaleX/1.05);
+
+    //TABLEAU ENFANT
+    enfant = this.physics.add.image(background.displayWidth * 4.5, window.innerHeight / 10, 'enfant');
+    enfant.setOrigin(0, 0);
+    enfant.setScale(background.scaleX / 1.1);
+
+    //TABLEAU VAGUES
+    vagues = this.physics.add.image(background.displayWidth * 6.2, window.innerHeight / 10, 'vagues');
+    vagues.setOrigin(0, 0);
+    vagues.setScale(background.scaleX / 1.1);
+
     //CHLOE ANIMATION
     this.anims.create({
         key: 'walk',
@@ -60,23 +97,35 @@ function create() {
         frameRate: 10,
         repeat: -1
     });
+
     //CHLOE
-    chloe = this.physics.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 5, 'chloe');
+    chloe = this.physics.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 4.95, 'chloe');
     chloe.setOrigin(0, 0);
     chloe.setScale(background.scaleX / 2);
+
     //CHLOE MOVEMENT
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
 
-    //FOULE
-    foule = this.physics.add.image(background.displayWidth * 5, window.innerHeight / 2, 'foule');
-    foule.setOrigin(0, 0);
-    foule.setScale(background.scaleX / 1.5);
-
     //CAMERA
-    this.cameras.main.setBounds(0, 0, background.displayWidth*10, window.innerHeight);
-    this.physics.world.setBounds(0, 0, background.displayWidth*10, window.innerHeight);
+    this.cameras.main.setBounds(0, 0, background.displayWidth * 10, window.innerHeight);
+    this.physics.world.setBounds(0, 0, background.displayWidth * 10, window.innerHeight);
     this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
+
+    //FOULE
+    foule = this.physics.add.image(background.displayWidth * 1.1, window.innerHeight / 1.85, 'foule');
+    foule.setOrigin(0, 0);
+    foule.setScale(background.scaleX / 1.6);
+
+    //STATUE1
+    statue1 = this.physics.add.image(background.displayWidth * 3.8, window.innerHeight / 5, 'statue1');
+    statue1.setOrigin(0, 0);
+    statue1.setScale(background.scaleX/1.05);
+
+    //STATUE1
+    statue2 = this.physics.add.image(background.displayWidth * 5.4, window.innerHeight / 5, 'statue2');
+    statue2.setOrigin(0, 0);
+    statue2.setScale(background.scaleX/1.05);
 
 }
 
@@ -86,25 +135,24 @@ function update() {
         return null;
     }
 
-//ORIENTATION DU SPRITE
-    if (scenographyConfig.direction === -1) { 
-        chloe.flipX=true;
+    //ORIENTATION DU SPRITE
+    if (scenographyConfig.direction === -1) {
+        chloe.flipX = true;
     } else {
-        chloe.flipX=false;
+        chloe.flipX = false;
     }
-    
-//AVANCER
-    if (goForward) { 
+
+    //AVANCER
+    if (goForward) {
         chloe.x += speed * scenographyConfig.direction;
         chloe.play("walk", true);
     }
-    else { 
+    else {
         chloe.play("idle", true);
     }
 
-//CHECK SI CHLOÉ PASSE À TRAVERS LA FOULE
-    if (checkOverlap(chloe, foule)) 
-    {
+    //CHECK SI CHLOÉ PASSE À TRAVERS LA FOULE
+    if (checkOverlap(chloe, foule)) {
         speed = scenographyConfig.crowdSpeed;
         this.cameras.main.shake(7, 0.005);
     }
@@ -131,7 +179,7 @@ function update() {
     }
 
     //DEMI-TOUR À LA FIN DU COULOIR
-    if (chloe.x > background.displayWidth * 10) {
+    if (chloe.x > background.displayWidth * 8) {
         scenographyConfig.direction = -1;
     }
 
