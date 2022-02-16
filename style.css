@@ -85,11 +85,14 @@ main section {
     font-style: italic;
 }
 
+.quoteContainer {
+    margin: 7vh;
+}
+
 .quoteBox {
     display: flex;
     justify-content: center;
     flex-direction: row;
-    margin: 5vh;
     text-align: center;
     align-items: center;
 }
@@ -112,8 +115,12 @@ main section {
 .credit-titre {
     padding: 2vh;
     font-weight: bold;
+<<<<<<< HEAD
+    font-size: 24px;
+=======
     font-size:24px;
     list-style: none;
+>>>>>>> 9ef95403daa799145bbe291e0093e2a5bcfdea09
 }
 
 
@@ -157,7 +164,7 @@ main section {
 }
 
 #dialogBox img {
-    height: 7vh;
+    height: 8vh;
 }
 
 #end-screen {
@@ -175,12 +182,12 @@ main section {
     text-align: center;
 }
 
-.endScreenBox img{
+.endScreenBox img {
     height: 40vh;
     margin-bottom: 10vh;
 }
 
-.buttonBackMenu{
+.buttonBackMenu {
     font-size: 5vh;
     font-weight: 300;
 }

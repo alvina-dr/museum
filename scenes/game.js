@@ -20,7 +20,14 @@ var scenographyConfig = {
 };
 var game = new Phaser.Game(config);
 var goForward = false;
-var painting1 = 0;
+var dialog1 = 0;
+var dialog2 = 0;
+var dialog3 = 0;
+var dialog4 = 0;
+var dialog5 = 0;
+var dialog6 = 0;
+var dialog7 = 0;
+
 var speed = scenographyConfig.walkSpeed;
 var meetLily = false;
 var chloeAnimationWalk = null;
@@ -42,6 +49,9 @@ function preload() {
     this.load.image('statue1', 'assets/ui/statue.png');
     this.load.spritesheet('vagues', 'assets/ui/Bateau.png', { frameWidth: 1490, frameHeight: 856 });
     this.load.image('statue2', 'assets/ui/Apollon.png');
+    this.load.image('maman', 'assets/sprites/Maman2.png');
+    this.load.image('press', 'assets/ui/press.png');
+    // this.load.image('vignette', 'assets/images.jpg');
 }
 
 function create() {
@@ -61,6 +71,11 @@ function create() {
     background.displayHeight = window.innerHeight;
     background.scaleX = background.scaleY;
     totalBackgroundLength = background.displayWidth * 9; //LA LONGUEUR TOTAL DU BACKGROUND (en fonction de la hauteur de l'écran)
+
+    // vignette = this.physics.add.image(0, 0, 'vignette');
+    // vignette.setOrigin(0, 0);
+    // vignette.setScale(background.scaleX * 10);
+    // vignette.setAlpha(0.5);
 
     //TABLEAU DÉPART
     oeuvredepart = this.add.image(background.displayWidth * 0, window.innerHeight / 10, 'oeuvredepart');
@@ -115,6 +130,13 @@ function create() {
         frames: [ { key: 'chloe', frame: 1 } ],
         frameRate: 10
     });
+
+
+    //MAMAN
+    maman = this.add.sprite(window.innerWidth / 11, window.innerHeight / 6 * 4.5, 'maman');
+    maman.setOrigin(0, 0);
+    maman.setScale(background.scaleX / 1.75);
+
     //CHLOE MOVEMENT
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
@@ -141,6 +163,11 @@ function create() {
     foule.setOrigin(0, 0);
     foule.setScale(background.scaleX / 1.6);
 
+    //PRESS BUTTON
+    press = this.add.sprite(window.innerWidth * 0.90, window.innerHeight / 6 * 4.95, 'press');
+    press.setOrigin(0, 0);
+    press.setScale(background.scaleX / 1.5);
+
     //STATUE1
     statue1 = this.add.image(background.displayWidth * 3.8, window.innerHeight / 5, 'statue1');
     statue1.setOrigin(0, 0);
@@ -155,11 +182,12 @@ function create() {
     this.cameras.main.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
     //this.physics.world.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
     this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
+    // vignette.startFollow(chloe, true, 0.05, 0.05);
 
 }
 
 function update() {
-//GAME IS PLAYING
+    //GAME IS PLAYING
     if (!isPlaying) {
         return null;
     }
@@ -172,11 +200,11 @@ function update() {
         chloe.flipX=true;
         lily.flipX=true;
     } else {
-        chloe.flipX=false;
+        chloe.flipX = false;
         if (meetLily === false) {
-            lily.flipX=true;
+            lily.flipX = true;
         } else {
-            lily.flipX=false;
+            lily.flipX = false;
         }
     }
 
@@ -210,25 +238,89 @@ function update() {
         speed = scenographyConfig.walkSpeed;
     }
 
-//PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
-    if (chloe.x > totalBackgroundLength/2 && painting1 === 0) {
-        //chloe.play("idleChloe");
+    //Premier dialogue 
+    if (chloe.x > totalBackgroundLength / 12 && meetLily === false && dialog1 === 0) {
+        chloe.play("idleChloe", true);
+        press.setScale(0);
         showDialog('introduction1');
         ingameScreen.addEventListener('click', () => {
             showDialog('introduction2');
             console.log('oh')
             ingameScreen.addEventListener('click', () => {
-                showDialog('introduction3');
+                showDialog('tutoriel1');
                 ingameScreen.addEventListener('click', () => {
                     dialogBox.style.display = "none";
                     isPlaying = true;
-                    painting1 += 1;
+                    dialog1 += 1;
                 });
             });
         });
     }
 
-//ARRIVÉ DEVANT LILY
+    if (chloe.x > totalBackgroundLength / 9 && meetLily === false && dialog2 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('introduction3');
+        ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog2 += 1;
+        });
+    }
+
+    if (chloe.x > totalBackgroundLength / 4 && meetLily === false && dialog3 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('tableau1');
+        ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog3 += 1;
+        });
+    }
+
+    if (chloe.x > totalBackgroundLength / 2.5 && meetLily === false && dialog4 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('statue1');
+        ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog4 += 1;
+        });
+    }
+
+    if (chloe.x > totalBackgroundLength / 1.9 && meetLily === false && dialog5 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('tableau2');
+        ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog5 += 1;
+        });
+    }
+
+    if (chloe.x > totalBackgroundLength / 1.7 && meetLily === false && dialog6 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('statue2');
+        ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog6 += 1;
+        });
+    }
+
+    if (chloe.x > totalBackgroundLength / 1.4 && meetLily === false && dialog7 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('tableau3');
+        ingameScreen.addEventListener('click', () => {
+            showDialog('tableau3bis');
+            ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog7 += 1;
+            });
+        });
+    }
+
+    //ARRIVÉ DEVANT LILY
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
         showDialog('meetLily1');
         ingameScreen.addEventListener('click', () => {
@@ -244,7 +336,8 @@ function update() {
                     });
                 });
             });
-        });}
+        });
+    }
 
     if (meetLily === true) { //suivre chloé
         lily.x = chloe.x - difference;
@@ -270,7 +363,7 @@ function update() {
 function endGame() { //FIN DU JEU
     switchScreen(ingameScreen, endScreen);
     //set all values back to zero to cleanly restart the game
-    painting1 = 0;
+    dialog1 = 0;
     chloe.x = 200;
     scenographyConfig.direction = 1;
     meetLily = false;
