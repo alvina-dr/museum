@@ -27,6 +27,8 @@ var dialog4 = 0;
 var dialog5 = 0;
 var dialog6 = 0;
 var dialog7 = 0;
+var dialog8 = 0;
+
 
 var speed = scenographyConfig.walkSpeed;
 var meetLily = false;
