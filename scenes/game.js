@@ -15,7 +15,7 @@ var config = {
 var isPlaying = false;
 var scenographyConfig = {
     walkSpeed: 10,
-    crowdSpeed: 5,
+    crowdSpeed: 20,
     direction: 1
 };
 var game = new Phaser.Game(config);
@@ -141,6 +141,7 @@ function create() {
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
 
+
     //LILY
     lily = this.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.85, 'lily');
     lily.setOrigin(0, 0);
@@ -183,6 +184,7 @@ function create() {
     //this.physics.world.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
     this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
     // vignette.startFollow(chloe, true, 0.05, 0.05);
+
 
 }
 
@@ -227,12 +229,7 @@ function update() {
     if (checkOverlap(chloe, foule)) {
         speed = scenographyConfig.crowdSpeed;
         this.cameras.main.shake(7, 0.005);
-        if (pointer.isDown)
-        {
-            if (pointer.isUp) {
-                console.log('Click was released');
-            }
-        }
+        goForward = false;
     }
     else {
         speed = scenographyConfig.walkSpeed;
@@ -242,101 +239,51 @@ function update() {
     if (chloe.x > totalBackgroundLength / 12 && meetLily === false && dialog1 === 0) {
         chloe.play("idleChloe", true);
         press.setScale(0);
-        showDialog('introduction1');
-        ingameScreen.addEventListener('click', () => {
-            showDialog('introduction2');
-            console.log('oh')
-            ingameScreen.addEventListener('click', () => {
-                showDialog('tutoriel1');
-                ingameScreen.addEventListener('click', () => {
-                    dialogBox.style.display = "none";
-                    isPlaying = true;
-                    dialog1 += 1;
-                });
-            });
-        });
+        showDialogs(["introduction1", "introduction2", "tutoriel1"]);
+        dialog1 += 1;
     }
 
     if (chloe.x > totalBackgroundLength / 9 && meetLily === false && dialog2 === 0) {
         chloe.play("idleChloe", true);
-        showDialog('introduction3');
-        ingameScreen.addEventListener('click', () => {
-            dialogBox.style.display = "none";
-            isPlaying = true;
-            dialog2 += 1;
-        });
+        showDialogs(['introduction3']);
+        dialog2 += 1;
     }
 
     if (chloe.x > totalBackgroundLength / 4 && meetLily === false && dialog3 === 0) {
         chloe.play("idleChloe", true);
-        showDialog('tableau1');
-        ingameScreen.addEventListener('click', () => {
-            dialogBox.style.display = "none";
-            isPlaying = true;
-            dialog3 += 1;
-        });
+        showDialogs(['tableau1']);
+        dialog3 += 1;
     }
 
     if (chloe.x > totalBackgroundLength / 2.5 && meetLily === false && dialog4 === 0) {
         chloe.play("idleChloe", true);
-        showDialog('statue1');
-        ingameScreen.addEventListener('click', () => {
-            dialogBox.style.display = "none";
-            isPlaying = true;
-            dialog4 += 1;
-        });
+        showDialogs(['statue1']);
+        dialog4 += 1;
     }
 
     if (chloe.x > totalBackgroundLength / 1.9 && meetLily === false && dialog5 === 0) {
         chloe.play("idleChloe", true);
-        showDialog('tableau2');
-        ingameScreen.addEventListener('click', () => {
-            dialogBox.style.display = "none";
-            isPlaying = true;
-            dialog5 += 1;
-        });
+        showDialogs(['tableau2']);
+        dialog5 += 1;
     }
 
     if (chloe.x > totalBackgroundLength / 1.7 && meetLily === false && dialog6 === 0) {
         chloe.play("idleChloe", true);
-        showDialog('statue2');
-        ingameScreen.addEventListener('click', () => {
-            dialogBox.style.display = "none";
-            isPlaying = true;
-            dialog6 += 1;
-        });
+        showDialogs(['statue2']);
+        dialog6 += 1;
     }
 
     if (chloe.x > totalBackgroundLength / 1.4 && meetLily === false && dialog7 === 0) {
         chloe.play("idleChloe", true);
-        showDialog('tableau3');
-        ingameScreen.addEventListener('click', () => {
-            showDialog('tableau3bis');
-            ingameScreen.addEventListener('click', () => {
-            dialogBox.style.display = "none";
-            isPlaying = true;
-            dialog7 += 1;
-            });
-        });
+        showDialogs(['tableau3', 'tableau3bis']);
+        dialog7 += 1;
     }
 
     //ARRIVÉ DEVANT LILY
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
-        showDialog('meetLily1');
-        ingameScreen.addEventListener('click', () => {
-            showDialog('meetLily2');
-            ingameScreen.addEventListener('click', () => {
-                showDialog('meetLily3');
-                ingameScreen.addEventListener('click', () => {
-                    showDialog('meetLily4');
-                    ingameScreen.addEventListener('click', () => {
-                        scenographyConfig.direction = -1;
-                        dialogBox.style.display = "none";
-                        timer = setInterval(animateLily, 10);
-                    });
-                });
-            });
-        });
+        showDialogs(['meetLily1', 'meetLily2', 'meetLily3', 'meetLily4']);
+        scenographyConfig.direction = -1;
+        timer = setInterval(animateLily, 10);
     }
 
     if (meetLily === true) { //suivre chloé
@@ -369,7 +316,7 @@ function endGame() { //FIN DU JEU
     meetLily = false;
     lily.x = totalBackgroundLength / 10 * 9;
     isPlaying = false;
-    this.scene.restart();
+    //this.scene.restart();
 }
 
 function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
