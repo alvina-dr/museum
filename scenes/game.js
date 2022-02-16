@@ -26,7 +26,14 @@ var scenographyConfig = {
 };
 var game = new Phaser.Game(config);
 var goForward = false;
-var painting1 = 0;
+var dialog1 = 0;
+var dialog2 = 0;
+var dialog3 = 0;
+var dialog4 = 0;
+var dialog5 = 0;
+var dialog6 = 0;
+var dialog7 = 0;
+
 var speed = scenographyConfig.walkSpeed;
 var meetLily = false;
 
@@ -47,6 +54,7 @@ function preload() {
     this.load.spritesheet('vagues', 'assets/ui/Bateau.png', { frameWidth: 1490, frameHeight: 856 });
     this.load.image('statue2', 'assets/ui/Apollon.png');
     this.load.image('maman', 'assets/sprites/Maman2.png');
+    this.load.image('press', 'assets/ui/press.png');
     // this.load.image('vignette', 'assets/images.jpg');
 }
 
@@ -155,6 +163,11 @@ function create() {
     foule.setOrigin(0, 0);
     foule.setScale(background.scaleX / 1.6);
 
+    //PRESS BUTTON
+    press = this.physics.add.sprite(window.innerWidth * 0.90, window.innerHeight / 6 * 4.95, 'press');
+    press.setOrigin(0, 0);
+    press.setScale(background.scaleX / 1.5);
+
     //STATUE1
     statue1 = this.physics.add.image(background.displayWidth * 3.8, window.innerHeight / 5, 'statue1');
     statue1.setOrigin(0, 0);
@@ -174,7 +187,7 @@ function create() {
 }
 
 function update() {
-//GAME IS PLAYING
+    //GAME IS PLAYING
     if (!isPlaying) {
         return null;
     }
@@ -217,20 +230,83 @@ function update() {
         speed = scenographyConfig.walkSpeed;
     }
 
-    //PREMIER PASSAGE DEVANT LE PREMIER TABLEAU
-    if (chloe.x > totalBackgroundLength / 2 && painting1 === 0) {
-        //await delay(5000); wait and animate somehow ?
+    //Premier dialogue 
+    if (chloe.x > totalBackgroundLength / 12 && meetLily === false && dialog1 === 0) {
         chloe.play("idleChloe", true);
+        press.setScale(0);
         showDialog('introduction1');
         ingameScreen.addEventListener('click', () => {
             showDialog('introduction2');
             ingameScreen.addEventListener('click', () => {
-                showDialog('introduction3');
+                showDialog('tutoriel1');
                 ingameScreen.addEventListener('click', () => {
                     dialogBox.style.display = "none";
                     isPlaying = true;
-                    painting1 += 1;
+                    dialog1 += 1;
                 });
+            });
+        });
+    }
+
+    if (chloe.x > totalBackgroundLength / 9 && meetLily === false && dialog2 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('introduction3');
+        ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog2 += 1;
+        });
+    }
+
+    if (chloe.x > totalBackgroundLength / 4 && meetLily === false && dialog3 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('tableau1');
+        ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog3 += 1;
+        });
+    }
+
+    if (chloe.x > totalBackgroundLength / 2.5 && meetLily === false && dialog4 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('statue1');
+        ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog4 += 1;
+        });
+    }
+
+    if (chloe.x > totalBackgroundLength / 1.9 && meetLily === false && dialog5 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('tableau2');
+        ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog5 += 1;
+        });
+    }
+
+    if (chloe.x > totalBackgroundLength / 1.7 && meetLily === false && dialog6 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('statue2');
+        ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog6 += 1;
+        });
+    }
+
+    if (chloe.x > totalBackgroundLength / 1.4 && meetLily === false && dialog7 === 0) {
+        chloe.play("idleChloe", true);
+        showDialog('tableau3');
+        ingameScreen.addEventListener('click', () => {
+            showDialog('tableau3bis');
+            ingameScreen.addEventListener('click', () => {
+            dialogBox.style.display = "none";
+            isPlaying = true;
+            dialog7 += 1;
             });
         });
     }
@@ -280,7 +356,7 @@ function endGame() { //FIN DU JEU
     isPlaying = false;
     switchScreen(ingameScreen, endScreen);
     //set all values back to zero to cleanly restart the game
-    painting1 = 0;
+    dialog1 = 0;
     chloe.x = 200;
     scenographyConfig.direction = 1;
     meetLily = false;
