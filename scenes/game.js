@@ -118,7 +118,6 @@ function create() {
     //CHLOE MOVEMENT
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
-    //this.input.justOn
 
     //LILY
     lily = this.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.85, 'lily');
@@ -165,6 +164,9 @@ function update() {
         return null;
     }
 
+    var pointer = this.input.activePointer;
+
+
 //ORIENTATION DU SPRITE
     if (scenographyConfig.direction === -1) { 
         chloe.flipX=true;
@@ -197,6 +199,12 @@ function update() {
     if (checkOverlap(chloe, foule)) {
         speed = scenographyConfig.crowdSpeed;
         this.cameras.main.shake(7, 0.005);
+        if (pointer.isDown)
+        {
+            if (pointer.isUp) {
+                console.log('Click was released');
+            }
+        }
     }
     else {
         speed = scenographyConfig.walkSpeed;
@@ -268,7 +276,7 @@ function endGame() { //FIN DU JEU
     meetLily = false;
     lily.x = totalBackgroundLength / 10 * 9;
     isPlaying = false;
-
+    this.scene.restart();
 }
 
 function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
@@ -297,3 +305,5 @@ function showDialogs() {
         //if there is another dialog then show other dialog
         //else close dialog
 }
+
+
