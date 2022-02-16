@@ -57,6 +57,9 @@ function preload() {
 function create() {
     this.cursors = this.input.keyboard.createCursorKeys();
 
+    document.getElementById("shadow").style.display = "block";
+    document.getElementById("shadow").style.opacity = "0.5";
+
     //BACKGROUND
 
     for (let i = 0; i < 50; i++) {
@@ -178,6 +181,7 @@ function create() {
     statue2 = this.add.image(background.displayWidth * 5.4, window.innerHeight / 5, 'statue2');
     statue2.setOrigin(0, 0);
     statue2.setScale(background.scaleX / 1.05);
+
 
     //CAMERA
     this.cameras.main.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
@@ -309,6 +313,12 @@ function update() {
     if (chloe.x > background.displayWidth * 8) {
         scenographyConfig.direction = -1;
     }
+
+    if (chloe.x < totalBackgroundLength / 1.2 && dialog8 === 0 && meetLily === true) {
+        showDialogs(['retour1', 'retour2', 'retour3', 'retour4']);
+        dialog8 += 1;
+    }
+
 
     //CHLOE RETROUVE SA MAMAN 
     if (chloe.x < 100 && scenographyConfig.direction === -1) {
