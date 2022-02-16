@@ -20,7 +20,6 @@ function showDialogs(dialogs) {
 
 function initDialogs() {
     window.addEventListener('click', () => {
-        console.log('ooooo')
         if (dialogsQueue.length > 0) {
             showDialog(dialogsQueue[0]);
             dialogsQueue.shift();

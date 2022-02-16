@@ -57,6 +57,7 @@ main section {
     text-align: center;
     height: 7vh;
     padding-top: 10vh;
+    padding-bottom: 10vh;
 }
 .flex img{
     height: 20vh;
@@ -151,6 +152,9 @@ main section {
 
 #dialogBox {
     display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
     background-color: #132A2E;
     color: #EEEEEE;
     border-radius: 1vh;
@@ -161,11 +165,15 @@ main section {
     z-index: 2;
 }
 
-.shadowbox{
+.shadow{
+    display: block;
     background-image: url(/assets/images.jpg);
-    position: absolute;
+    background-size: cover;
+    height: 100vh;
+    height: 100vw;
     opacity: 0.5;
     z-index: 100;
+    pointer-events: none;
 }
 
 #dialogBox::after{

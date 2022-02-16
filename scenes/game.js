@@ -61,6 +61,9 @@ function preload() {
 function create() {
     this.cursors = this.input.keyboard.createCursorKeys();
 
+    document.getElementById("shadow").style.display = "block";
+    document.getElementById("shadow").style.opacity = "0.5";
+
     //BACKGROUND
 
     for (let i = 0; i < 50; i++) {
@@ -177,6 +180,7 @@ function create() {
     statue2.setOrigin(0, 0);
     statue2.setScale(background.scaleX / 1.05);
 
+
     //CAMERA
     this.cameras.main.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
     //this.physics.world.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
@@ -282,6 +286,8 @@ function update() {
         showDialogs(['meetLily1', 'meetLily2', 'meetLily3', 'meetLily4']);
         scenographyConfig.direction = -1;
         timer = setInterval(animateLily, 10);
+        chloe.play("idleChloe", true);
+        lily.play("idleLily", true);
     }
 
     if (meetLily === true) { //suivre chloé
@@ -299,26 +305,8 @@ function update() {
     var i = 0; 
 
     if (chloe.x < totalBackgroundLength / 1.2 && dialog8 === 0 && meetLily === true && i === 0) {
-        showDialog('retour1');
-        lily.x = totalBackgroundLength / 1.2 - 200;
-        i += 1; 
-        ingameScreen.addEventListener('click', () => {
-            showDialog('retour2');
-            lily.x = totalBackgroundLength / 1.2 - 200;
-            ingameScreen.addEventListener('click', () => {
-                showDialog('retour3');
-                lily.x = totalBackgroundLength / 1.2 - 200;
-                ingameScreen.addEventListener('click', () => {
-                    showDialog('retour4');
-                    lily.x = totalBackgroundLength / 1.2 - 200;
-                    ingameScreen.addEventListener('click', () => {
-                        isPlaying = true;
-                        dialog8 += 1;
-                        lily.x = chloe.x - difference;
-                    });
-                });
-            });
-        });
+        showDialogs(['retour1', 'retour2', 'retour3', 'retour4']);
+        dialog8 += 1;
     }
 
 
