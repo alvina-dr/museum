@@ -35,12 +35,8 @@ var meetLily = false;
 var chloeAnimationWalk = null;
 
 function preload() {
-    /*this.load.atlasJSONHash;
-    this.load.multiatlas('lily', 'assets/anims/lily.json', 'assets/anims');*/
-
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
     this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 341, frameHeight: 382 });
-    //this.load.spritesheet('lilyIdle', 'assets/sprites/lilyIdle.png', { frameWidth: 341, frameHeight: 382 });
     this.load.image('background', 'assets/ui/BG.png');
     this.load.image('foule', 'assets/sprites/foule.png');
     this.load.image('oeuvredepart', 'assets/ui/oeuvredépart.png');
@@ -53,7 +49,6 @@ function preload() {
     this.load.image('statue2', 'assets/ui/Apollon.png');
     this.load.image('maman', 'assets/sprites/Maman2.png');
     this.load.image('press', 'assets/ui/press.png');
-    // this.load.image('vignette', 'assets/images.jpg');
 }
 
 function create() {
@@ -73,11 +68,6 @@ function create() {
     background.displayHeight = window.innerHeight;
     background.scaleX = background.scaleY;
     totalBackgroundLength = background.displayWidth * 9; //LA LONGUEUR TOTAL DU BACKGROUND (en fonction de la hauteur de l'écran)
-
-    // vignette = this.physics.add.image(0, 0, 'vignette');
-    // vignette.setOrigin(0, 0);
-    // vignette.setScale(background.scaleX * 10);
-    // vignette.setAlpha(0.5);
 
     //TABLEAU DÉPART
     oeuvredepart = this.add.image(background.displayWidth * 0, window.innerHeight / 10, 'oeuvredepart');
@@ -113,7 +103,7 @@ function create() {
     vagues.setTexture('vagues', 1);
 
 
-    //CHLOE
+    //CHLOE ---------------------------------------------------------------------------------------------------------------------
     chloe = this.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 4.95, 'chloe');
     chloe.setOrigin(0, 0);
     chloe.setScale(background.scaleX / 2);
@@ -132,19 +122,12 @@ function create() {
         frames: [ { key: 'chloe', frame: 1 } ],
         frameRate: 10
     });
-
-
-    //MAMAN
-    maman = this.add.sprite(window.innerWidth / 11, window.innerHeight / 6 * 4.5, 'maman');
-    maman.setOrigin(0, 0);
-    maman.setScale(background.scaleX / 1.75);
-
     //CHLOE MOVEMENT
     this.input.on('pointerdown', () => goForward = true);
     this.input.on('pointerup', () => goForward = false);
 
 
-    //LILY
+    //LILY ---------------------------------------------------------------------------------------------------------------------
     lily = this.add.sprite(totalBackgroundLength / 10 * 9, window.innerHeight / 6 * 4.85, 'lily');
     lily.setOrigin(0, 0);
     lily.setScale(background.scaleX / 2);
@@ -160,6 +143,11 @@ function create() {
         frames: [ { key: 'lily', frame: 2 } ],
         frameRate: 10
     });
+
+    //MAMAN ---------------------------------------------------------------------------------------------------------------------
+    maman = this.add.sprite(window.innerWidth / 11, window.innerHeight / 6 * 4.5, 'maman');
+    maman.setOrigin(0, 0);
+    maman.setScale(background.scaleX / 1.75);
 
     //FOULE
     foule = this.add.image(background.displayWidth * 1.1, window.innerHeight / 1.85, 'foule');
@@ -181,13 +169,9 @@ function create() {
     statue2.setOrigin(0, 0);
     statue2.setScale(background.scaleX / 1.05);
 
-
     //CAMERA
     this.cameras.main.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
-    //this.physics.world.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
     this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
-    // vignette.startFollow(chloe, true, 0.05, 0.05);
-
 
 }
 
