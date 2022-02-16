@@ -27,6 +27,11 @@ var dialog4 = 0;
 var dialog5 = 0;
 var dialog6 = 0;
 var dialog7 = 0;
+var dialog8 = 0;
+var dialog9 = 0;
+var dialog10 = 0;
+
+
 
 var speed = scenographyConfig.walkSpeed;
 var meetLily = false;
@@ -51,7 +56,6 @@ function preload() {
     this.load.image('statue2', 'assets/ui/Apollon.png');
     this.load.image('maman', 'assets/sprites/Maman2.png');
     this.load.image('press', 'assets/ui/press.png');
-    // this.load.image('vignette', 'assets/images.jpg');
 }
 
 function create() {
@@ -71,11 +75,6 @@ function create() {
     background.displayHeight = window.innerHeight;
     background.scaleX = background.scaleY;
     totalBackgroundLength = background.displayWidth * 9; //LA LONGUEUR TOTAL DU BACKGROUND (en fonction de la hauteur de l'écran)
-
-    // vignette = this.physics.add.image(0, 0, 'vignette');
-    // vignette.setOrigin(0, 0);
-    // vignette.setScale(background.scaleX * 10);
-    // vignette.setAlpha(0.5);
 
     //TABLEAU DÉPART
     oeuvredepart = this.add.image(background.displayWidth * 0, window.innerHeight / 10, 'oeuvredepart');
@@ -109,7 +108,6 @@ function create() {
     vagues.setOrigin(0, 0);
     vagues.setScale(background.scaleX / 1.1);
     vagues.setTexture('vagues', 1);
-
 
     //CHLOE
     chloe = this.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 4.95, 'chloe');
@@ -243,37 +241,37 @@ function update() {
         dialog1 += 1;
     }
 
-    if (chloe.x > totalBackgroundLength / 9 && meetLily === false && dialog2 === 0) {
+    if (chloe.x > totalBackgroundLength / 9 && dialog2 === 0) {
         chloe.play("idleChloe", true);
         showDialogs(['introduction3']);
         dialog2 += 1;
     }
 
-    if (chloe.x > totalBackgroundLength / 4 && meetLily === false && dialog3 === 0) {
+    if (chloe.x > totalBackgroundLength / 3.5 && dialog3 === 0) {
         chloe.play("idleChloe", true);
         showDialogs(['tableau1']);
         dialog3 += 1;
     }
 
-    if (chloe.x > totalBackgroundLength / 2.5 && meetLily === false && dialog4 === 0) {
+    if (chloe.x > totalBackgroundLength / 2.5 && dialog4 === 0) {
         chloe.play("idleChloe", true);
         showDialogs(['statue1']);
         dialog4 += 1;
     }
 
-    if (chloe.x > totalBackgroundLength / 1.9 && meetLily === false && dialog5 === 0) {
+    if (chloe.x > totalBackgroundLength / 1.9 && dialog5 === 0) {
         chloe.play("idleChloe", true);
         showDialogs(['tableau2']);
         dialog5 += 1;
     }
 
-    if (chloe.x > totalBackgroundLength / 1.7 && meetLily === false && dialog6 === 0) {
+    if (chloe.x > totalBackgroundLength / 1.7 && dialog6 === 0) {
         chloe.play("idleChloe", true);
         showDialogs(['statue2']);
         dialog6 += 1;
     }
 
-    if (chloe.x > totalBackgroundLength / 1.4 && meetLily === false && dialog7 === 0) {
+    if (chloe.x > totalBackgroundLength / 1.4 && dialog7 === 0 && meetLily === false) {
         chloe.play("idleChloe", true);
         showDialogs(['tableau3', 'tableau3bis']);
         dialog7 += 1;
@@ -297,6 +295,32 @@ function update() {
     if (chloe.x > background.displayWidth * 8) {
         scenographyConfig.direction = -1;
     }
+
+    var i = 0; 
+
+    if (chloe.x < totalBackgroundLength / 1.2 && dialog8 === 0 && meetLily === true && i === 0) {
+        showDialog('retour1');
+        lily.x = totalBackgroundLength / 1.2 - 200;
+        i += 1; 
+        ingameScreen.addEventListener('click', () => {
+            showDialog('retour2');
+            lily.x = totalBackgroundLength / 1.2 - 200;
+            ingameScreen.addEventListener('click', () => {
+                showDialog('retour3');
+                lily.x = totalBackgroundLength / 1.2 - 200;
+                ingameScreen.addEventListener('click', () => {
+                    showDialog('retour4');
+                    lily.x = totalBackgroundLength / 1.2 - 200;
+                    ingameScreen.addEventListener('click', () => {
+                        isPlaying = true;
+                        dialog8 += 1;
+                        lily.x = chloe.x - difference;
+                    });
+                });
+            });
+        });
+    }
+
 
     //CHLOE RETROUVE SA MAMAN 
     if (chloe.x < 100 && scenographyConfig.direction === -1) {
