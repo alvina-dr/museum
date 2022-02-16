@@ -50,6 +50,18 @@ main section {
     padding: 100px;
 }
 
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 7vh;
+}
+.flex img{
+    height: 20vh;
+}
+
+
 .mainTitle {
     display: flex;
     justify-content: center;
@@ -57,6 +69,7 @@ main section {
     text-align: center;
     font-size: 7vh;
     margin-bottom: 5vh;
+    padding: 0 5vw;
     text-shadow: 1px 0px 1px #CCCCCC, 0px 1px 1px #EEEEEE, 2px 1px 1px #CCCCCC, 1px 2px 1px #EEEEEE, 3px 2px 1px #CCCCCC, 2px 3px 1px #EEEEEE, 4px 3px 1px #CCCCCC, 3px 4px 1px #EEEEEE, 5px 4px 1px #CCCCCC, 4px 5px 1px #EEEEEE, 6px 5px 1px #CCCCCC, 5px 6px 1px #EEEEEE, 7px 6px 1px #CCCCCC;
 }
 
@@ -115,12 +128,8 @@ main section {
 .credit-titre {
     padding: 2vh;
     font-weight: bold;
-<<<<<<< HEAD
-    font-size: 24px;
-=======
     font-size:24px;
     list-style: none;
->>>>>>> 9ef95403daa799145bbe291e0093e2a5bcfdea09
 }
 
 
@@ -150,6 +159,14 @@ main section {
     margin: 2vw 2.5vh;
     padding: 2vw 2vh;
     font-size: 4vh;
+    z-index: 2;
+}
+
+.shadowbox{
+    background-image: url(/assets/images.jpg);
+    position: absolute;
+    opacity: 0.5;
+    z-index: 100;
 }
 
 .textMaxSize {
@@ -211,11 +228,28 @@ button {
     flex-direction: row;
 }
 
-@media screen and (max-device-width: 800px) {
+@media screen and (max-device-width: 850px) {
     #credits {
         height: fit-content;
     }
     .space {
         flex-direction: column;
+    }
+    .flex img{
+        display: none;
+    }
+    .citation{
+        height: 2vh;
+    }
+    .author{
+        height: 1.5vh;
+        margin-top: 15vh;
+        padding-top: 5vh;
+    }
+    .mainTitle{
+        margin-top: 15vh;
+    }
+    .menuButtonBox{
+        margin-top: 15vh;
     }
 }

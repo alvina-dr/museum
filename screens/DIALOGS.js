@@ -13,7 +13,13 @@ var DIALOGS = {
     meetLily1: 'Tu es perdue ?',
     meetLily2: 'Salut, moi c’est Lily. Tout va bien ?',
     meetLily3: 'J’ai perdu ma maman.',
-    meetLily4: 'Tu te souviens d’où tu viens ? On peut essayer de la retrouver toutes les deux.'
+    meetLily4: 'Tu te souviens d’où tu viens ? On peut essayer de la retrouver toutes les deux.',
+
+    retour1: 'Tout va bien ?',
+    retour2: 'J’ai peur du tableau.',
+    retour3: 'C’est juste une peinture, tu vois comme les vagues sont hautes ? C’est fait exprès pour que les gens ressentent la scène. Mais ici, on est sur la terre ferme, alors tout va bien !',
+    retour4: '...',    
+
 };
 
 var CHARACTER = { 
@@ -25,9 +31,16 @@ var CHARACTER = {
     statue1: './assets/head/chloé.png',
     tableau2: './assets/head/chloé.png',
     statue2: './assets/head/chloé.png',
+    tableau3: './assets/head/chloé.png',
+    tableau3bis: './assets/head/chloé.png',
 
     meetLily1: './assets/head/lily.png',
     meetLily2: './assets/head/lily.png',
     meetLily3: './assets/head/chloé.png',
     meetLily4: './assets/head/lily.png',
+
+    retour1: './assets/head/lily.png',
+    retour2: './assets/head/chloé.png',
+    retour3: './assets/head/lily.png',
+    retour4: './assets/head/chloé.png',
 }
