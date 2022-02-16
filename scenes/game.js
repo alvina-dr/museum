@@ -57,9 +57,6 @@ function preload() {
 function create() {
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    document.getElementById("shadow").style.display = "block";
-    document.getElementById("shadow").style.opacity = "0.5";
-
     //BACKGROUND
 
     for (let i = 0; i < 50; i++) {
