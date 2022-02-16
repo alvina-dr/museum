@@ -216,7 +216,7 @@ function update() {
     if (checkOverlap(chloe, foule)) {
         speed = scenographyConfig.crowdSpeed;
         this.cameras.main.shake(7, 0.005);
-        goForward = false;
+        //goForward = false;
     }
     else {
         speed = scenographyConfig.walkSpeed;
@@ -268,20 +268,29 @@ function update() {
 
     //ARRIVÉ DEVANT LILY
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
+        chloe.play("idleChloe", true);
         showDialog('meetLily1');
         window.addEventListener('click', () => {
-            showDialog('meetLily2');
-            window.addEventListener('click', () => {
-                showDialog('meetLily3');
+            if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
+                showDialog('meetLily2');
                 window.addEventListener('click', () => {
-                    showDialog('meetLily4');
-                    window.addEventListener('click', () => {
-                        dialogBox.style.display = "none";
-                        scenographyConfig.direction = -1;
-                        timer = setInterval(animateLily, 10);
-                    });
+                    if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
+                        showDialog('meetLily3');
+                        window.addEventListener('click', () => {
+                            if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
+                                showDialog('meetLily4');
+                                window.addEventListener('click', () => {
+                                    if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
+                                        dialogBox.style.display = "none";
+                                        scenographyConfig.direction = -1;
+                                        timer = setInterval(animateLily, 10);
+                                    }
+                                });
+                            }
+                        });
+                    }
                 });
-            });
+            }
         });
     }
 
@@ -292,16 +301,11 @@ function update() {
         lion.setTexture('lion', 0);
     }
 
-    //DEMI-TOUR À LA FIN DU COULOIR
-    if (chloe.x > background.displayWidth * 8) {
-        scenographyConfig.direction = -1;
-    }
-
     if (chloe.x < totalBackgroundLength / 1.2 && dialog8 === 0 && meetLily === true) {
         showDialogs(['retour1', 'retour2', 'retour3', 'retour4']);
-        dialog8 += 1;
+        console.log("animation");
+        dialog8++;
     }
-
 
     //CHLOE RETROUVE SA MAMAN 
     if (chloe.x < 100 && scenographyConfig.direction === -1) {
@@ -315,13 +319,12 @@ function update() {
 function endGame() { //FIN DU JEU
     switchScreen(ingameScreen, endScreen);
     //set all values back to zero to cleanly restart the game
-    dialog1 = 0;
+    /*dialog1 = 0;
     chloe.x = 200;
     scenographyConfig.direction = 1;
     meetLily = false;
     lily.x = totalBackgroundLength / 10 * 9;
-    isPlaying = false;
-    //this.scene.restart();
+    isPlaying = false;*/
 }
 
 function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
@@ -335,12 +338,11 @@ function animateLily() {
     lily.x = lily.x - 1; //lily avance de 1 vers la gauche
     lily.play("walkLily", true);
     if (lily.x < chloe.x - innerWidth / 15) {
-        clearInterval(timer);
         isPlaying = true;
         meetLily = true;
         difference = chloe.x - lily.x;
         lily.play("idleLily", true);
-
+        clearInterval(timer);
     }
 }
 

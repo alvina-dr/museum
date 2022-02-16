@@ -20,6 +20,7 @@ function goMainMenu() {
     var button = endScreen.querySelector('button');
     button.addEventListener('click', () => {
         switchScreen(endScreen, homeScreen);
+        location.reload();
     });
 }
 

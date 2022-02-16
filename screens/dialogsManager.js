@@ -1,3 +1,5 @@
+var dialogsQueue = [];
+
 function showDialog(key) {
     dialogBox.style.display = "block";
     var content = DIALOGS[key];
@@ -8,8 +10,6 @@ function showDialog(key) {
     chloe.play("idle", true);
     lily.play("idle", true);
 }
-
-var dialogsQueue = [];
 
 function showDialogs(dialogs) {
     dialogsQueue = dialogs;
