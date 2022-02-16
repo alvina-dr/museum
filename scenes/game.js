@@ -319,7 +319,7 @@ function update() {
     }
 
     //ARRIVÉ DEVANT LILY
-    if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
+    if (chloe.x > totalBackgroundLength / 10 * 9 - 200 && meetLily === false) {
         showDialog('meetLily1');
         ingameScreen.addEventListener('click', () => {
             showDialog('meetLily2');
@@ -349,14 +349,21 @@ function update() {
         scenographyConfig.direction = -1;
     }
 
-    if (chloe.x < totalBackgroundLength / 1.2 && dialog8 === 0 && meetLily === true) {
+    var i = 0; 
+
+    if (chloe.x < totalBackgroundLength / 1.2 && dialog8 === 0 && meetLily === true && i === 0) {
         showDialog('retour1');
+        lily.x = totalBackgroundLength / 1.2 - 200;
+        i += 1; 
         ingameScreen.addEventListener('click', () => {
             showDialog('retour2');
+            lily.x = totalBackgroundLength / 1.2 - 200;
             ingameScreen.addEventListener('click', () => {
                 showDialog('retour3');
+                lily.x = totalBackgroundLength / 1.2 - 200;
                 ingameScreen.addEventListener('click', () => {
                     showDialog('retour4');
+                    lily.x = totalBackgroundLength / 1.2 - 200;
                     ingameScreen.addEventListener('click', () => {
                         isPlaying = true;
                         dialog8 += 1;
