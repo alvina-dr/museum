@@ -36,7 +36,7 @@ var DIALOGS = {
 
 var CHARACTER = {
     introduction1: './assets/head/chloé.png',
-    introduction2: "",
+    introduction2: './assets/head/Guide.png',
     introduction3: './assets/head/chloé.png',
     tutoriel1: '',
     tableau1: './assets/head/chloé.png',
@@ -44,17 +44,17 @@ var CHARACTER = {
     tableau2: './assets/head/chloé.png',
     statue2: './assets/head/chloé.png',
     tableau3: './assets/head/chloé.png',
-    tableau3bis: './assets/head/chloé.png',
+    tableau3bis: './assets/head/chloéSob.png',
 
     meetLily1: './assets/head/lily.png',
     meetLily2: './assets/head/lily.png',
-    meetLily3: './assets/head/chloé.png',
+    meetLily3: './assets/head/chloéSob.png',
     meetLily4: './assets/head/lily.png',
 
     retour1: './assets/head/lily.png',
-    retour2: './assets/head/chloé.png',
+    retour2: './assets/head/chloéSob.png',
     retour3: './assets/head/lily.png',
-    retour4: './assets/head/chloé.png',
+    retour4: './assets/head/chloéSob.png',
 
     retour5: './assets/head/lily.png',
     retour6: './assets/head/chloé.png',
