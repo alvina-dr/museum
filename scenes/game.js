@@ -39,9 +39,6 @@ var chloeAnimationWalk = null;
 var varEndGame = 0;
 
 function preload() {
-    /*this.load.atlasJSONHash;
-    this.load.multiatlas('lily', 'assets/anims/lily.json', 'assets/anims');*/
-
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 277.6, frameHeight: 354 });
     this.load.spritesheet('chloeSob', 'assets/sprites/Chloewalksob.png', { frameWidth: 277.6, frameHeight: 354 });
     this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 341, frameHeight: 382 });
