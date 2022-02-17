@@ -1,6 +1,3 @@
-// width = window.innerWidth * window.devicePixelRatio;
-// height = window.innerHeight * window.devicePixelRatio;
-
 var config = {
     type: Phaser.AUTO,
     width: window.innerWidth,
@@ -42,7 +39,6 @@ var chloeAnimationWalk = null;
 var varEndGame = 0;
 
 function preload() {
-    this.load.audio('guide', ['assets/sound/Guide.mp3']);
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 277.6, frameHeight: 354 });
     this.load.spritesheet('chloeSob', 'assets/sprites/Chloewalksob.png', { frameWidth: 277.6, frameHeight: 354 });
     this.load.spritesheet('idlechloe', 'assets/sprites/chloeIdle.png', { frameWidth: 306, frameHeight: 344 });
@@ -292,6 +288,7 @@ function update() {
         speed = scenographyConfig.crowdSpeed;
         this.cameras.main.shake(7, 0.005);
         goForward = false;
+        taptap.setScale(1);
         if (meetLily === true) {
             lily.setScale(0)
         }
@@ -308,11 +305,10 @@ function update() {
         dialog1 += 1;
     }
 
-    if (chloe.x > totalBackgroundLength / 10 && meetLily === false && dialog2 === 0) {
+    if (chloe.x > totalBackgroundLength / 11 && meetLily === false && dialog2 === 0) {
         chloe.play("idleChloe", true);
         showDialogs(['introduction3']);
         dialog2 += 1;
-        taptap.setScale(1);
     }
 
     if (chloe.x > totalBackgroundLength / 4.3 && meetLily === false && dialog2 === 1) {
