@@ -414,13 +414,6 @@ function update() {
 
 function endGame() { //FIN DU JEU
     switchScreen(ingameScreen, endScreen);
-    //set all values back to zero to cleanly restart the game
-    /*dialog1 = 0;
-    chloe.x = 200;
-    scenographyConfig.direction = 1;
-    meetLily = false;
-    lily.x = totalBackgroundLength / 10 * 9;
-    isPlaying = false;*/
 }
 
 function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
