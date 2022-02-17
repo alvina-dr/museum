@@ -198,10 +198,6 @@ main section {
     align-items: center;
 }
 
-#dialogBox img {
-    height: 8vh;
-}
-
 #end-screen {
     background-color: lightgoldenrodyellow;
     height: 100vh;
@@ -270,4 +266,27 @@ button {
     .menuButtonBox{
         margin-top: 15vh;
     }
+}
+
+
+
+@keyframes pressAnim {
+    0% {
+      background-image: url('assets/ui/press1.png');
+    }
+    50% {
+      background-image: url('assets/ui/press2.png');
+    }
+  }
+  
+.press {
+    height: 9vh;
+    width: 8vw;
+    background-image: url('assets/ui/press1.png');
+    background-size: cover;
+    animation: pressAnim 1s infinite;
+}
+
+#dialogBox img {
+    height: 8vh;
 }

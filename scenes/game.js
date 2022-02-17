@@ -48,7 +48,7 @@ function preload() {
     this.load.spritesheet('vagues', 'assets/ui/Bateau.png', { frameWidth: 1490, frameHeight: 856 });
     this.load.image('statue2', 'assets/ui/Apollon.png');
     this.load.image('maman', 'assets/sprites/Maman2.png');
-    this.load.image('press', 'assets/ui/press.png');
+    this.load.spritesheet('press', 'assets/ui/press.png', { frameWidth: 239, frameHeight: 239 });
 }
 
 function create() {
@@ -158,6 +158,15 @@ function create() {
     press = this.add.sprite(window.innerWidth * 0.90, window.innerHeight / 6 * 4.95, 'press');
     press.setOrigin(0, 0);
     press.setScale(background.scaleX / 1.5);
+    this.anims.create({
+        key: 'pressAnim',
+        frames: this.anims.generateFrameNumbers('press', {
+            start: 0,
+            end: 1
+        }),        frameRate: 10,
+        repeat: -1
+    });
+    press.play('pressAnim', true);
 
     //STATUE1
     statue1 = this.add.image(background.displayWidth * 3.8, window.innerHeight / 5, 'statue1');
@@ -181,7 +190,7 @@ function update() {
         return null;
     }
 
-    var pointer = this.input.activePointer;
+    //var pointer = this.input.activePointer;
 
 
 //ORIENTATION DU SPRITE
@@ -223,14 +232,14 @@ function update() {
     }
 
     //Premier dialogue 
-    /*if (chloe.x > totalBackgroundLength / 12 && meetLily === false && dialog1 === 0) {
+    if (chloe.x > totalBackgroundLength / 12 && meetLily === false && dialog1 === 0) {
         chloe.play("idleChloe", true);
         press.setScale(0);
         showDialogs(["introduction1", "introduction2", "tutoriel1"]);
         dialog1 += 1;
     }
 
-    if (chloe.x > totalBackgroundLength / 9 && meetLily === false && dialog2 === 0) {
+    /*    if (chloe.x > totalBackgroundLength / 9 && meetLily === false && dialog2 === 0) {
         chloe.play("idleChloe", true);
         showDialogs(['introduction3']);
         dialog2 += 1;
@@ -302,6 +311,8 @@ function update() {
     }
 
     if (chloe.x < totalBackgroundLength / 1.2 && dialog8 === 0 && meetLily === true) {
+        chloe.play("idleChloe", true);
+        lily.play("idleLily", true);
         showDialogs(['retour1', 'retour2', 'retour3', 'retour4']);
         console.log("animation");
         dialog8++;
