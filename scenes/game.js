@@ -1,5 +1,5 @@
-width = window.innerWidth * window.devicePixelRatio;
-height = window.innerHeight * window.devicePixelRatio;
+// width = window.innerWidth * window.devicePixelRatio;
+// height = window.innerHeight * window.devicePixelRatio;
 
 var config = {
     type: Phaser.AUTO,
