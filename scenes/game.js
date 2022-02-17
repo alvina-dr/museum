@@ -225,7 +225,7 @@ function update() {
     if (checkOverlap(chloe, foule)) {
         speed = scenographyConfig.crowdSpeed;
         this.cameras.main.shake(7, 0.005);
-        //goForward = false;
+        goForward = false;
     }
     else {
         speed = scenographyConfig.walkSpeed;
@@ -239,7 +239,7 @@ function update() {
         dialog1 += 1;
     }
 
-    /*    if (chloe.x > totalBackgroundLength / 9 && meetLily === false && dialog2 === 0) {
+        if (chloe.x > totalBackgroundLength / 9 && meetLily === false && dialog2 === 0) {
         chloe.play("idleChloe", true);
         showDialogs(['introduction3']);
         dialog2 += 1;
@@ -273,7 +273,7 @@ function update() {
         chloe.play("idleChloe", true);
         showDialogs(['tableau3', 'tableau3bis']);
         dialog7 += 1;
-    }*/
+    }
 
     //ARRIVÉ DEVANT LILY
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
