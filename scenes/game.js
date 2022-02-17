@@ -61,9 +61,13 @@ function create() {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     //BACKGROUND
+    background = this.add.image(0, 0, 'background');
+    background.setOrigin(0, 0);
+    background.displayHeight = window.innerHeight;
+    background.scaleX = background.scaleY;
 
-    for (let i = 0; i < 50; i++) {
-        background = this.add.image(i * 400, 0, 'background');
+    for (let i = 1; i < 50; i++) {
+        background = this.add.image(i * background.displayWidth, 0, 'background');
         background.setOrigin(0, 0);
         background.displayHeight = window.innerHeight;
         background.scaleX = background.scaleY;
@@ -139,7 +143,7 @@ function create() {
     });
     //CHLOE SOB
     this.anims.create({
-        key: 'walkChloeSOB',
+        key: 'walkChloeSob',
         frames: this.anims.generateFrameNumbers('chloeSob', {
             start: 0,
             end: 5
@@ -261,7 +265,7 @@ function update() {
             chloe.play("walkChloe", true);
         } else { // meetLily === false
             if (chloe.x > totalBackgroundLength / 1.4) {
-                chloe.play("walkChloeSOB", true);
+                chloe.play("walkChloeSob", true);
             } else {
                 lily.play("idleLily", true);
                 chloe.play("walkChloe", true);
@@ -375,6 +379,7 @@ function update() {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
         showDialogs(['retour1', 'retour2', 'retour3', 'retour4']);
+        //this.cameras.main.centerOn(totalBackgroundLength / 2, 0);
         timerAlpha = setInterval(function(){lowerAlpha(vagues)}, 100);
         dialog8++;
     }
@@ -403,12 +408,10 @@ function update() {
         timer = setInterval(animateChloe, 10);
         ingameScreen.addEventListener('click', () => {
             if (varEndGame === 1) {
-                console.log("premier clic")
                 showDialog(['maman2']);
                 varEndGame = 2;
                 ingameScreen.addEventListener('click', () => {
                     if (varEndGame === 2) {
-                        console.log("deuxième clic")
                         endGame();
                     }
                 })
@@ -436,7 +439,7 @@ function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
 function animateLily() {
     lily.x = lily.x - 1; //lily avance de 1 vers la gauche
     lily.play("walkLily", true);
-    if (lily.x < chloe.x - window.innerWidth / 15) {
+    if (lily.x < chloe.x - window.innerWidth / 10) {
         isPlaying = true;
         meetLily = true;
         difference = chloe.x - lily.x;
