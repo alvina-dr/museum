@@ -36,6 +36,7 @@ var dialog11 = 0;
 var speed = scenographyConfig.walkSpeed;
 var meetLily = false;
 var chloeAnimationWalk = null;
+var endGame = 0;
 
 function preload() {
     /*this.load.atlasJSONHash;
@@ -271,6 +272,9 @@ function update() {
         speed = scenographyConfig.crowdSpeed;
         this.cameras.main.shake(7, 0.005);
         goForward = false;
+        if (meetLily === true) {
+            lily.setScale(0)
+        }
     }
     else {
         speed = scenographyConfig.walkSpeed;
@@ -384,17 +388,26 @@ function update() {
         dialog10++;
     }
 
+    //Chloé sort de la foule et retrouve sa maman
     if (chloe.x < totalBackgroundLength / 10 && dialog11 === 0 && meetLily === true) {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
-        showDialogs(['maman1', 'maman2']);
-        console.log("animation11");
-        dialog11++;
-    }
+        endGame = 1;
+        setPlaying(false);
+        timer = setInterval(animateChloe, 10);
+        showDialog(['maman1']);
+        ingameScreen.addEventListener('click', () => {
+            if (endGame === 1) {
+                showDialog(['maman2']);
+                ingameScreen.addEventListener('click', () => {
+                    if (endGame === 2) {
+                        endGame();
+                    }
+                })
+            }
 
-    //CHLOE RETROUVE SA MAMAN 
-    if (chloe.x < 100 && scenographyConfig.direction === -1) {
-        endGame();
+        });
+        dialog11++;
     }
 }
 
@@ -431,12 +444,15 @@ function animateLily() {
     }
 }
 
-function showDialogs() {
-    //show first dialog
-    //check if click
-    //if there is another dialog then show other dialog
-    //else close dialog
-}
 
+function animateChloe() {
+    chloe.x = chloe.x - 1; //chloe avance de 1 vers la gauche
+    chloe.play("walkChloe", true);
+    if (chloe.x < window.innerWidth / 11 * 2) {
+        chloe.play("idleChloe", true);
+        showDialogs(['maman2']);
+        clearInterval(timer);
+    }
+}
 
 
