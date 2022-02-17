@@ -138,7 +138,7 @@ function create() {
     });
     this.anims.create({
         key: 'idleChloe',
-        frames: [{ key: 'chloe', frame: 1 }],
+        frames: [{ key: 'chloe', frame: 2 }],
         frameRate: 10
     });
     this.anims.create({
@@ -229,9 +229,6 @@ function update() {
         return null;
     }
 
-    var pointer = this.input.activePointer;
-
-
     //ORIENTATION DU SPRITE
     if (scenographyConfig.direction === -1) {
         chloe.flipX = true;
@@ -248,19 +245,18 @@ function update() {
     //AVANCER
     if (goForward) {
         chloe.x += speed * scenographyConfig.direction;
-        chloe.play("walkChloe", true);
-        
         if (meetLily === true) {
             lily.play("walkLily", true);
-        } 
-        if (chloe.x > totalBackgroundLength / 1.4 && meetLily === false) {
-            chloe.play("walkChloeSOB", true);
+            chloe.play("walkChloe", true);
+        } else { // meetLily === false
+            if (chloe.x > totalBackgroundLength / 1.4) {
+                chloe.play("walkChloeSOB", true);
+            } else {
+                lily.play("idleLily", true);
+                chloe.play("walkChloe", true);
+            }
         }
-        else {
-            lily.play("idleLily", true);
-        }
-    }
-    else {
+    } else {
         if (chloe.x > totalBackgroundLength / 1.4 && meetLily === false) {
             chloe.play("idleChloeSob", true);
         }
@@ -333,16 +329,16 @@ function update() {
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
         chloe.play("idleChloeSob", true);
         showDialog('meetLily1');
-        window.addEventListener('click', () => {
+        ingameScreen.addEventListener('click', () => {
             if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                 showDialog('meetLily2');
-                window.addEventListener('click', () => {
+                ingameScreen.addEventListener('click', () => {
                     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                         showDialog('meetLily3');
-                        window.addEventListener('click', () => {
+                        ingameScreen.addEventListener('click', () => {
                             if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                                 showDialog('meetLily4');
-                                window.addEventListener('click', () => {
+                                ingameScreen.addEventListener('click', () => {
                                     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                                         dialogBox.style.display = "none";
                                         scenographyConfig.direction = -1;
@@ -365,24 +361,32 @@ function update() {
     }
 
     if (chloe.x < totalBackgroundLength / 1.2 && dialog8 === 0 && meetLily === true) {
+        chloe.play("idleChloe", true);
+        lily.play("idleLily", true);
         showDialogs(['retour1', 'retour2', 'retour3', 'retour4']);
         console.log("animation8");
         dialog8++;
     }
 
     if (chloe.x < totalBackgroundLength / 1.8 && dialog9 === 0 && meetLily === true) {
+        chloe.play("idleChloe", true);
+        lily.play("idleLily", true);
         showDialogs(['retour5', 'retour6']);
         console.log("animation9");
         dialog9++;
     }
 
     if (chloe.x < totalBackgroundLength / 2.8 && dialog10 === 0 && meetLily === true) {
+        chloe.play("idleChloe", true);
+        lily.play("idleLily", true);
         showDialogs(['retour7', 'retour8', 'retour9', 'retour10']);
         console.log("animation10");
         dialog10++;
     }
 
     if (chloe.x < totalBackgroundLength / 10 && dialog11 === 0 && meetLily === true) {
+        chloe.play("idleChloe", true);
+        lily.play("idleLily", true);
         showDialogs(['maman1', 'maman2']);
         console.log("animation11");
         dialog11++;
