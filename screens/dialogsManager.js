@@ -23,7 +23,14 @@ function showDialogs(dialogs) {
 
 function initDialogs() {
     ingameScreen.addEventListener('click', () => {
+        if (dialogBox.style.display = "block"){
+            console.log("la joie");
+            var pop = new Audio('/assets/sound/pop1_ui.mp3');
+            pop.play();
+        }
         if (dialogsQueue.length > 0) {
+            var pop = new Audio('/assets/sound/pop1_ui.mp3');
+            pop.play();
             showDialog(dialogsQueue[0]);
             dialogsQueue.shift();
         } else {
