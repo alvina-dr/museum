@@ -57,6 +57,7 @@ function preload() {
     this.load.image('statue2', 'assets/ui/Apollon.png');
     this.load.image('maman', 'assets/sprites/Maman2.png');
     this.load.spritesheet('press', 'assets/ui/press.png', { frameWidth: 239, frameHeight: 239 });
+    this.load.spritesheet('taptap', 'assets/sprites/tap.png', { frameWidth: 239, frameHeight: 239 });
 }
 
 function create() {
@@ -192,6 +193,19 @@ function create() {
         repeat: -1
     });
 
+    taptap = this.add.sprite(window.innerWidth * 0.90, window.innerHeight / 6 * 1.5, 'taptap');
+    taptap.setOrigin(0, 0);
+    taptap.setScale(0);
+    this.anims.create({
+        key: 'taptapAnim',
+        frames: this.anims.generateFrameNumbers('taptap', {
+            start: 0,
+            end: 1
+        }),
+        frameRate: 5,
+        repeat: -1
+    });
+
     //STATUE1
     statue1 = this.add.image(background.displayWidth * 3.8, window.innerHeight / 5, 'statue1');
     statue1.setOrigin(0, 0);
@@ -207,6 +221,7 @@ function create() {
     this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
 
     press.play('pressAnim');
+    taptap.play('taptapAnim');
 }
 
 function update() {
@@ -277,9 +292,14 @@ function update() {
         chloe.play("idleChloe", true);
         showDialogs(['introduction3']);
         dialog2 += 1;
+        taptap.setScale(1);
     }
 
-    if (chloe.x > totalBackgroundLength / 4 && meetLily === false && dialog3 === 0) {
+    if (chloe.x > totalBackgroundLength / 4.3 && meetLily === false && dialog2 === 1) {
+        taptap.setScale(0);
+    }
+
+    if (chloe.x > totalBackgroundLength / 3.5 && meetLily === false && dialog3 === 0) {
         chloe.play("idleChloe", true);
         showDialogs(['tableau1']);
         dialog3 += 1;

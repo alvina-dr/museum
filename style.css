@@ -168,11 +168,12 @@ main section {
     padding: 2vw 2vh;
     font-size: 4vh;
     z-index: 2;
+    user-select: none;
 }
 
 .press {
-    height: 8vh;
-    width: 8vh;
+    height: 7vh;
+    width: 7vh;
     background-image: url('assets/ui/press1.png');
     background-size: cover;
     animation: pressAnim 1s infinite;
