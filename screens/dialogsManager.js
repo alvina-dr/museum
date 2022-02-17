@@ -18,7 +18,7 @@ function showDialogs(dialogs) {
 }
 
 function initDialogs() {
-    window.addEventListener('click', () => {
+    ingameScreen.addEventListener('click', () => {
         if (dialogsQueue.length > 0) {
             showDialog(dialogsQueue[0]);
             dialogsQueue.shift();
