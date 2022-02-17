@@ -85,28 +85,41 @@ function create() {
     Fenetre1.setOrigin(0, 0);
     Fenetre1.setScale(background.scaleX / 1.05);
 
-    //TABLEAU LION
-    lion = this.add.sprite(background.displayWidth * 2.3, window.innerHeight / 10, 'lion');
-    lion.setOrigin(0, 0);
-    lion.setScale(background.scaleX / 1.1);
-    lion.setTexture('lion', 1);
-
     //FENETRE2
     Fenetre2 = this.add.image(background.displayWidth * 3.6, window.innerHeight / 7, 'fenetre2');
     Fenetre2.setOrigin(0, 0);
     Fenetre2.setScale(background.scaleX / 1.05);
 
+    //TABLEAU LION
+    lionNormal = this.add.sprite(background.displayWidth * 2.3, window.innerHeight / 10, 'lion');
+    lionNormal.setOrigin(0, 0);
+    lionNormal.setScale(background.scaleX / 1.1);
+    lionNormal.setTexture('lion', 0);
+    lion = this.add.sprite(background.displayWidth * 2.3, window.innerHeight / 10, 'lion');
+    lion.setOrigin(0, 0);
+    lion.setScale(background.scaleX / 1.1);
+    lion.setTexture('lion', 1);
+
     //TABLEAU ENFANT
+    enfantNormal = this.add.sprite(background.displayWidth * 4.5, window.innerHeight / 10, 'enfant');
+    enfantNormal.setOrigin(0, 0);
+    enfantNormal.setScale(background.scaleX / 1.1);
+    enfantNormal.setTexture('enfant', 0);
     enfant = this.add.sprite(background.displayWidth * 4.5, window.innerHeight / 10, 'enfant');
     enfant.setOrigin(0, 0);
     enfant.setScale(background.scaleX / 1.1);
     enfant.setTexture('enfant', 1);
 
     //TABLEAU VAGUES
+    vaguesNormal = this.add.image(background.displayWidth * 6.2, window.innerHeight / 10, 'vagues');
+    vaguesNormal.setOrigin(0, 0);
+    vaguesNormal.setScale(background.scaleX / 1.1);
+    vaguesNormal.setTexture('vagues', 0);
     vagues = this.add.image(background.displayWidth * 6.2, window.innerHeight / 10, 'vagues');
     vagues.setOrigin(0, 0);
     vagues.setScale(background.scaleX / 1.1);
     vagues.setTexture('vagues', 1);
+
 
 
     //CHLOE ---------------------------------------------------------------------------------------------------------------------
@@ -356,15 +369,13 @@ function update() {
 
     if (meetLily === true) { //suivre chloé
         lily.x = chloe.x - difference;
-        vagues.setTexture('vagues', 0);
-        enfant.setTexture('enfant', 0);
-        lion.setTexture('lion', 0);
     }
 
     if (chloe.x < totalBackgroundLength / 1.2 && dialog8 === 0 && meetLily === true) {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
         showDialogs(['retour1', 'retour2', 'retour3', 'retour4']);
+        timerAlpha = setInterval(function(){lowerAlpha(vagues)}, 100);
         dialog8++;
     }
 
@@ -372,6 +383,7 @@ function update() {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
         showDialogs(['retour5', 'retour6']);
+        timerAlpha = setInterval(function(){lowerAlpha(enfant)}, 100);
         dialog9++;
     }
 
@@ -379,6 +391,7 @@ function update() {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
         showDialogs(['retour7', 'retour8', 'retour9', 'retour10']);
+        timerAlpha = setInterval(function(){lowerAlpha(lion)}, 100);
         dialog10++;
     }
 
@@ -444,4 +457,10 @@ function animateChloe() {
     }
 }
 
+function lowerAlpha(sprite) {
+    sprite.alpha = sprite.alpha - 0.05;
+    if (sprite.alpha === 0) {
+        clearInterval(timerAlpha);
+    }
+}
 
