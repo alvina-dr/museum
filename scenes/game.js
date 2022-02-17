@@ -18,6 +18,10 @@ var scenographyConfig = {
     crowdSpeed: 20,
     direction: 1
 };
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
 var game = new Phaser.Game(config);
 var goForward = false;
 var dialog1 = 0;
@@ -32,15 +36,16 @@ var dialog9 = 0;
 var dialog10 = 0;
 var dialog11 = 0;
 
-
 var speed = scenographyConfig.walkSpeed;
 var meetLily = false;
 var chloeAnimationWalk = null;
 var varEndGame = 0;
 
 function preload() {
+    this.load.audio('guide', ['assets/sound/Guide.mp3']);
     this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 277.6, frameHeight: 354 });
     this.load.spritesheet('chloeSob', 'assets/sprites/Chloewalksob.png', { frameWidth: 277.6, frameHeight: 354 });
+    this.load.spritesheet('idlechloe', 'assets/sprites/chloeIdle.png', { frameWidth: 306, frameHeight: 344 });
     this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 341, frameHeight: 382 });
     this.load.image('background', 'assets/ui/BG.png');
     this.load.image('foule', 'assets/sprites/foule.png');
@@ -134,10 +139,11 @@ function create() {
         frameRate: 10,
         repeat: -1
     });
+
     this.anims.create({
         key: 'idleChloe',
-        frames: [{ key: 'chloe', frame: 2 }],
-        frameRate: 10
+        frames: [{ key: 'idlechloe', frame: getRandomInt(3) }],
+        frameRate: 10,
     });
     this.anims.create({
         key: 'idleChloeSob',

@@ -63,4 +63,45 @@ var CHARACTER = {
     retour8: './assets/head/lily.png',
     retour9: './assets/head/chloé.png',
     retour10: './assets/head/lily.png',
+
+    maman1: './assets/head/lily.png',
+    maman2: "./assets/head/lily.png",
+
 }
+
+var SOUND = {
+
+    introduction1: './assets/sound/Chlo-01.mp3',
+    introduction2: './assets/sound/Guide.mp3',
+    introduction3: './assets/sound/Chlo-03.mp3',
+
+    tableau1: './assets/sound/Chlo-02.mp3',
+    statue1: './assets/sound/Chlo-03.mp3',
+    tableau2: './assets/sound/Chlo-02.mp3',
+    statue2: './assets/sound/Chlo-01.mp3',
+    tableau3: './assets/sound/Chlo-02.mp3',
+    tableau3bis: './assets/sound/Chlo-03.mp3',
+
+    meetLily1: './assets/sound/Lily-01.mp3',
+    meetLily2: './assets/sound/Chlo-01.mp3',
+    meetLily3: './assets/sound/Lily-02.mp3',
+    meetLily4: '',
+
+    retour1: './assets/sound/Lily-01.mp3',
+    retour2: './assets/sound/Chlo-03.mp3',
+    retour3: './assets/sound/Lily-02.mp3',
+    retour4: '',
+
+    retour5: './assets/sound/Lily-02.mp3',
+    retour6: './assets/sound/Chlo-01.mp3',
+
+    retour7: './assets/sound/Lily-01.mp3',
+    retour8: './assets/sound/Lily-02.mp3',
+    retour9: './assets/sound/Chlo-03.mp3',
+    retour10: './assets/sound/Lily-02.mp3',
+
+    maman1: './assets/sound/Lily-03.mp3',
+    maman2: "./assets/sound/Lily-01.mp3",
+
+}   
+
