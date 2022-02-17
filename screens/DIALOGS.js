@@ -18,11 +18,23 @@ var DIALOGS = {
     retour1: 'Tout va bien ?',
     retour2: 'J’ai peur du tableau.',
     retour3: 'C’est juste une peinture, tu vois comme les vagues sont hautes ? C’est fait exprès pour que les gens ressentent la scène. Mais ici, on est sur la terre ferme, alors tout va bien !',
-    retour4: '...',    
+    retour4: '...',
+
+    retour5: 'Tiens regarde ce portrait, je le trouve rigolo ! Il est très vieux. Ma Maman m’a dit qu’à l’époque on dessinait les gens avec la peau parfaite, c’est pour ça que les personnages ne semblent pas réels.',
+    retour6: 'D’accord, je comprends un peu mieux.',
+
+    retour7: "Ce lion vient tout droit de la fable “Le Lion devenu vieux”. Cette histoire nous parle d'un puissant que le temps a rattrapé, le Roi des animaux.",
+    retour8: 'La morale de cette histoire explique que même les animaux les plus petits sont devenus forts à cause de sa faiblesse.',
+    retour9: 'Oui c’est vrai qu’une fois le tableau expliqué ça fait moins peur.',
+    retour10: 'Tu vois, tu grandis, tu n’as presque plus peur !',
+
+    maman1: 'Maman !',
+    maman2: "Tu n'imagines pas ce que j’ai traversé, je me suis fait une nouvelle amie. Maman, je te présente Lil- ... Lily ?",
+
 
 };
 
-var CHARACTER = { 
+var CHARACTER = {
     introduction1: './assets/head/chloé.png',
     introduction2: "",
     introduction3: './assets/head/chloé.png',
@@ -43,4 +55,12 @@ var CHARACTER = {
     retour2: './assets/head/chloé.png',
     retour3: './assets/head/lily.png',
     retour4: './assets/head/chloé.png',
+
+    retour5: './assets/head/lily.png',
+    retour6: './assets/head/chloé.png',
+
+    retour7: './assets/head/lily.png',
+    retour8: './assets/head/lily.png',
+    retour9: './assets/head/chloé.png',
+    retour10: './assets/head/lily.png',
 }
