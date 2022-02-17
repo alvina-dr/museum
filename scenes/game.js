@@ -14,8 +14,8 @@ var config = {
 
 var isPlaying = false;
 var scenographyConfig = {
-    walkSpeed: 10,
-    crowdSpeed: 20,
+    walkSpeed: window.innerWidth/300,
+    crowdSpeed: window.innerWidth/50,
     direction: 1
 };
 function getRandomInt(max) {
@@ -66,9 +66,13 @@ function create() {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     //BACKGROUND
+    background = this.add.image(0, 0, 'background');
+    background.setOrigin(0, 0);
+    background.displayHeight = window.innerHeight;
+    background.scaleX = background.scaleY;
 
-    for (let i = 0; i < 50; i++) {
-        background = this.add.image(i * 400, 0, 'background');
+    for (let i = 1; i < 50; i++) {
+        background = this.add.image(i * background.displayWidth, 0, 'background');
         background.setOrigin(0, 0);
         background.displayHeight = window.innerHeight;
         background.scaleX = background.scaleY;
@@ -90,28 +94,41 @@ function create() {
     Fenetre1.setOrigin(0, 0);
     Fenetre1.setScale(background.scaleX / 1.05);
 
-    //TABLEAU LION
-    lion = this.add.sprite(background.displayWidth * 2.3, window.innerHeight / 10, 'lion');
-    lion.setOrigin(0, 0);
-    lion.setScale(background.scaleX / 1.1);
-    lion.setTexture('lion', 1);
-
     //FENETRE2
     Fenetre2 = this.add.image(background.displayWidth * 3.6, window.innerHeight / 7, 'fenetre2');
     Fenetre2.setOrigin(0, 0);
     Fenetre2.setScale(background.scaleX / 1.05);
 
+    //TABLEAU LION
+    lionNormal = this.add.sprite(background.displayWidth * 2.3, window.innerHeight / 10, 'lion');
+    lionNormal.setOrigin(0, 0);
+    lionNormal.setScale(background.scaleX / 1.1);
+    lionNormal.setTexture('lion', 0);
+    lion = this.add.sprite(background.displayWidth * 2.3, window.innerHeight / 10, 'lion');
+    lion.setOrigin(0, 0);
+    lion.setScale(background.scaleX / 1.1);
+    lion.setTexture('lion', 1);
+
     //TABLEAU ENFANT
+    enfantNormal = this.add.sprite(background.displayWidth * 4.5, window.innerHeight / 10, 'enfant');
+    enfantNormal.setOrigin(0, 0);
+    enfantNormal.setScale(background.scaleX / 1.1);
+    enfantNormal.setTexture('enfant', 0);
     enfant = this.add.sprite(background.displayWidth * 4.5, window.innerHeight / 10, 'enfant');
     enfant.setOrigin(0, 0);
     enfant.setScale(background.scaleX / 1.1);
     enfant.setTexture('enfant', 1);
 
     //TABLEAU VAGUES
+    vaguesNormal = this.add.image(background.displayWidth * 6.2, window.innerHeight / 10, 'vagues');
+    vaguesNormal.setOrigin(0, 0);
+    vaguesNormal.setScale(background.scaleX / 1.1);
+    vaguesNormal.setTexture('vagues', 0);
     vagues = this.add.image(background.displayWidth * 6.2, window.innerHeight / 10, 'vagues');
     vagues.setOrigin(0, 0);
     vagues.setScale(background.scaleX / 1.1);
     vagues.setTexture('vagues', 1);
+
 
 
     //CHLOE ---------------------------------------------------------------------------------------------------------------------
@@ -131,7 +148,7 @@ function create() {
     });
     //CHLOE SOB
     this.anims.create({
-        key: 'walkChloeSOB',
+        key: 'walkChloeSob',
         frames: this.anims.generateFrameNumbers('chloeSob', {
             start: 0,
             end: 5
@@ -254,7 +271,7 @@ function update() {
             chloe.play("walkChloe", true);
         } else { // meetLily === false
             if (chloe.x > totalBackgroundLength / 1.4) {
-                chloe.play("walkChloeSOB", true);
+                chloe.play("walkChloeSob", true);
             } else {
                 lily.play("idleLily", true);
                 chloe.play("walkChloe", true);
@@ -362,15 +379,14 @@ function update() {
 
     if (meetLily === true) { //suivre chloé
         lily.x = chloe.x - difference;
-        vagues.setTexture('vagues', 0);
-        enfant.setTexture('enfant', 0);
-        lion.setTexture('lion', 0);
     }
 
     if (chloe.x < totalBackgroundLength / 1.2 && dialog8 === 0 && meetLily === true) {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
         showDialogs(['retour1', 'retour2', 'retour3', 'retour4']);
+        //this.cameras.main.centerOn(totalBackgroundLength / 2, 0);
+        timerAlpha = setInterval(function(){lowerAlpha(vagues)}, 100);
         dialog8++;
     }
 
@@ -378,6 +394,7 @@ function update() {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
         showDialogs(['retour5', 'retour6']);
+        timerAlpha = setInterval(function(){lowerAlpha(enfant)}, 100);
         dialog9++;
     }
 
@@ -385,6 +402,7 @@ function update() {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
         showDialogs(['retour7', 'retour8', 'retour9', 'retour10']);
+        timerAlpha = setInterval(function(){lowerAlpha(lion)}, 100);
         dialog10++;
     }
 
@@ -396,12 +414,10 @@ function update() {
         timer = setInterval(animateChloe, 10);
         ingameScreen.addEventListener('click', () => {
             if (varEndGame === 1) {
-                console.log("premier clic")
                 showDialog(['maman2']);
                 varEndGame = 2;
                 ingameScreen.addEventListener('click', () => {
                     if (varEndGame === 2) {
-                        console.log("deuxième clic")
                         endGame();
                     }
                 })
@@ -429,7 +445,7 @@ function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
 function animateLily() {
     lily.x = lily.x - 1; //lily avance de 1 vers la gauche
     lily.play("walkLily", true);
-    if (lily.x < chloe.x - innerWidth / 15) {
+    if (lily.x < chloe.x - window.innerWidth / 10) {
         isPlaying = true;
         meetLily = true;
         difference = chloe.x - lily.x;
@@ -442,7 +458,7 @@ function animateLily() {
 function animateChloe() {
     chloe.x = chloe.x - 1; //chloe avance de 1 vers la gauche
     chloe.play("walkChloe", true);
-    if (chloe.x < window.innerWidth / 11 * 2) {
+    if (chloe.x < window.innerWidth / 11 * 3) {
         chloe.play("idleChloe", true);
         showDialog(['maman1']);
         varEndGame = 1;
@@ -450,4 +466,10 @@ function animateChloe() {
     }
 }
 
+function lowerAlpha(sprite) {
+    sprite.alpha = sprite.alpha - 0.05;
+    if (sprite.alpha === 0) {
+        clearInterval(timerAlpha);
+    }
+}
 
