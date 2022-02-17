@@ -301,7 +301,7 @@ function update() {
 
     //ARRIVÉ DEVANT LILY
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
-        chloe.play("idleChloe", true);
+        chloe.play("idleChloeSob", true);
         showDialog('meetLily1');
         window.addEventListener('click', () => {
             if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {

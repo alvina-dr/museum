@@ -1,14 +1,21 @@
 /*police import*/
 @import url(//db.onlinewebfonts.com/c/0841832efbb3901931dccd608ef8e051?family=WhatnotW00-Regular);
 
-@font-face {font-family: "WhatnotW00-Regular"; 
-    src: url("/assets/fonts/0841832efbb3901931dccd608ef8e051.eot"); /* IE9*/
-    src: url("/assets/fonts/0841832efbb3901931dccd608ef8e051.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-    url("/assets/fonts/0841832efbb3901931dccd608ef8e051.woff2") format("woff2"), /* chrome、firefox */
-    url("/assets/fonts/0841832efbb3901931dccd608ef8e051.woff") format("woff"), /* chrome、firefox */
-    url("/assets/fonts/0841832efbb3901931dccd608ef8e051.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-    url("/assets/fonts/0841832efbb3901931dccd608ef8e051.svg#Whatnot W00 Regular") format("svg"); /* iOS 4.1- */
-  }
+@font-face {
+    font-family: "WhatnotW00-Regular";
+    src: url("/assets/fonts/0841832efbb3901931dccd608ef8e051.eot");
+    /* IE9*/
+    src: url("/assets/fonts/0841832efbb3901931dccd608ef8e051.eot?#iefix") format("embedded-opentype"),
+        /* IE6-IE8 */
+        url("/assets/fonts/0841832efbb3901931dccd608ef8e051.woff2") format("woff2"),
+        /* chrome、firefox */
+        url("/assets/fonts/0841832efbb3901931dccd608ef8e051.woff") format("woff"),
+        /* chrome、firefox */
+        url("/assets/fonts/0841832efbb3901931dccd608ef8e051.ttf") format("truetype"),
+        /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+        url("/assets/fonts/0841832efbb3901931dccd608ef8e051.svg#Whatnot W00 Regular") format("svg");
+    /* iOS 4.1- */
+}
 
 body {
     margin: 0;
@@ -50,7 +57,7 @@ main section {
     padding: 100px;
 }
 
-.flex{
+.flex {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,7 +66,8 @@ main section {
     padding-top: 10vh;
     padding-bottom: 10vh;
 }
-.flex img{
+
+.flex img {
     height: 20vh;
 }
 
@@ -130,7 +138,7 @@ main section {
 .credit-titre {
     padding: 2vh;
     font-weight: bold;
-    font-size:24px;
+    font-size: 24px;
     list-style: none;
 }
 
@@ -152,9 +160,6 @@ main section {
 
 #dialogBox {
     display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
     background-color: #132A2E;
     color: #EEEEEE;
     border-radius: 1vh;
@@ -165,7 +170,20 @@ main section {
     z-index: 2;
 }
 
-.shadow{
+.press {
+    height: 8vh;
+    width: 8vh;
+    background-image: url('assets/ui/press1.png');
+    background-size: cover;
+    animation: pressAnim 1s infinite;
+}
+
+#dialogBox img {
+    height: 8vh;
+    margin-left: 0.5vw;
+}
+
+.shadow {
     display: block;
     background-image: url(/assets/images.jpg);
     background-size: cover;
@@ -176,7 +194,7 @@ main section {
     pointer-events: none;
 }
 
-#dialogBox::after{
+#dialogBox::after {
     content: '';
     display: block;
     position: absolute;
@@ -184,11 +202,13 @@ main section {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .textMaxSize {
     width: 85vw;
+    margin-left: 2vw;
+    margin-right: 2vw;
 }
 
 .dialogBoxFlex {
@@ -246,24 +266,30 @@ button {
     #credits {
         height: fit-content;
     }
+
     .space {
         flex-direction: column;
     }
-    .flex img{
+
+    .flex img {
         display: none;
     }
-    .citation{
+
+    .citation {
         height: 2vh;
     }
-    .author{
+
+    .author {
         height: 1.5vh;
         margin-top: 15vh;
         padding-top: 5vh;
     }
-    .mainTitle{
+
+    .mainTitle {
         margin-top: 15vh;
     }
-    .menuButtonBox{
+
+    .menuButtonBox {
         margin-top: 15vh;
     }
 }
@@ -272,21 +298,10 @@ button {
 
 @keyframes pressAnim {
     0% {
-      background-image: url('assets/ui/press1.png');
+        background-image: url('assets/ui/press1.png');
     }
-    50% {
-      background-image: url('assets/ui/press2.png');
-    }
-  }
-  
-.press {
-    height: 9vh;
-    width: 8vw;
-    background-image: url('assets/ui/press1.png');
-    background-size: cover;
-    animation: pressAnim 1s infinite;
-}
 
-#dialogBox img {
-    height: 8vh;
+    50% {
+        background-image: url('assets/ui/press2.png');
+    }
 }
