@@ -28,6 +28,9 @@ var dialog5 = 0;
 var dialog6 = 0;
 var dialog7 = 0;
 var dialog8 = 0;
+var dialog9 = 0;
+var dialog10 = 0;
+var dialog11 = 0;
 
 
 var speed = scenographyConfig.walkSpeed;
@@ -35,7 +38,11 @@ var meetLily = false;
 var chloeAnimationWalk = null;
 
 function preload() {
-    this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 331, frameHeight: 360 });
+    /*this.load.atlasJSONHash;
+    this.load.multiatlas('lily', 'assets/anims/lily.json', 'assets/anims');*/
+
+    this.load.spritesheet('chloe', 'assets/sprites/chloe.png', { frameWidth: 277.6, frameHeight: 354 });
+    this.load.spritesheet('chloeSob', 'assets/sprites/Chloewalksob.png', { frameWidth: 277.6, frameHeight: 354 });
     this.load.spritesheet('lily', 'assets/sprites/lily.png', { frameWidth: 341, frameHeight: 382 });
     this.load.image('background', 'assets/ui/BG.png');
     this.load.image('foule', 'assets/sprites/foule.png');
@@ -48,7 +55,7 @@ function preload() {
     this.load.spritesheet('vagues', 'assets/ui/Bateau.png', { frameWidth: 1490, frameHeight: 856 });
     this.load.image('statue2', 'assets/ui/Apollon.png');
     this.load.image('maman', 'assets/sprites/Maman2.png');
-    this.load.spritesheet('press', 'assets/ui/press.png', { frameWidth: 239, frameHeight: 239 });
+    this.load.image('press', 'assets/ui/press.png');
 }
 
 function create() {
@@ -107,19 +114,35 @@ function create() {
     chloe = this.add.sprite(window.innerWidth / 6, window.innerHeight / 6 * 4.95, 'chloe');
     chloe.setOrigin(0, 0);
     chloe.setScale(background.scaleX / 2);
+
     //CHLOE ANIMATION
     this.anims.create({
         key: 'walkChloe',
         frames: this.anims.generateFrameNumbers('chloe', {
             start: 0,
-            end: 3
+            end: 5
+        }),
+        frameRate: 10,
+        repeat: -1
+    });
+    //CHLOE SOB
+    this.anims.create({
+        key: 'walkChloeSOB',
+        frames: this.anims.generateFrameNumbers('chloeSob', {
+            start: 0,
+            end: 5
         }),
         frameRate: 10,
         repeat: -1
     });
     this.anims.create({
         key: 'idleChloe',
-        frames: [ { key: 'chloe', frame: 1 } ],
+        frames: [{ key: 'chloe', frame: 1 }],
+        frameRate: 10
+    });
+    this.anims.create({
+        key: 'idleChloeSob',
+        frames: [{ key: 'chloeSob', frame: 2 }],
         frameRate: 10
     });
     //CHLOE MOVEMENT
@@ -140,7 +163,7 @@ function create() {
     });
     this.anims.create({
         key: 'idleLily',
-        frames: [ { key: 'lily', frame: 2 } ],
+        frames: [{ key: 'lily', frame: 2 }],
         frameRate: 10
     });
 
@@ -158,15 +181,6 @@ function create() {
     press = this.add.sprite(window.innerWidth * 0.90, window.innerHeight / 6 * 4.95, 'press');
     press.setOrigin(0, 0);
     press.setScale(background.scaleX / 1.5);
-    this.anims.create({
-        key: 'pressAnim',
-        frames: this.anims.generateFrameNumbers('press', {
-            start: 0,
-            end: 1
-        }),        frameRate: 10,
-        repeat: -1
-    });
-    press.play('pressAnim', true);
 
     //STATUE1
     statue1 = this.add.image(background.displayWidth * 3.8, window.innerHeight / 5, 'statue1');
@@ -190,13 +204,13 @@ function update() {
         return null;
     }
 
-    //var pointer = this.input.activePointer;
+    var pointer = this.input.activePointer;
 
 
-//ORIENTATION DU SPRITE
-    if (scenographyConfig.direction === -1) { 
-        chloe.flipX=true;
-        lily.flipX=true;
+    //ORIENTATION DU SPRITE
+    if (scenographyConfig.direction === -1) {
+        chloe.flipX = true;
+        lily.flipX = true;
     } else {
         chloe.flipX = false;
         if (meetLily === false) {
@@ -210,22 +224,32 @@ function update() {
     if (goForward) {
         chloe.x += speed * scenographyConfig.direction;
         chloe.play("walkChloe", true);
+        
         if (meetLily === true) {
             lily.play("walkLily", true);
-        } else {
+        } 
+        if (chloe.x > totalBackgroundLength / 1.4 && meetLily === false) {
+            chloe.play("walkChloeSOB", true);
+        }
+        else {
             lily.play("idleLily", true);
         }
     }
     else {
-        chloe.play("idleChloe", true);
-        lily.play("idleLily", true);
+        if (chloe.x > totalBackgroundLength / 1.4 && meetLily === false) {
+            chloe.play("idleChloeSob", true);
+        }
+        else {
+            chloe.play("idleChloe", true);
+            lily.play("idleLily", true);
+        }
     }
 
     //CHECK SI CHLOÉ PASSE À TRAVERS LA FOULE
     if (checkOverlap(chloe, foule)) {
         speed = scenographyConfig.crowdSpeed;
         this.cameras.main.shake(7, 0.005);
-        //goForward = false;
+        goForward = false;
     }
     else {
         speed = scenographyConfig.walkSpeed;
@@ -239,7 +263,7 @@ function update() {
         dialog1 += 1;
     }
 
-    /*    if (chloe.x > totalBackgroundLength / 9 && meetLily === false && dialog2 === 0) {
+    if (chloe.x > totalBackgroundLength / 9 && meetLily === false && dialog2 === 0) {
         chloe.play("idleChloe", true);
         showDialogs(['introduction3']);
         dialog2 += 1;
@@ -273,22 +297,22 @@ function update() {
         chloe.play("idleChloe", true);
         showDialogs(['tableau3', 'tableau3bis']);
         dialog7 += 1;
-    }*/
+    }
 
     //ARRIVÉ DEVANT LILY
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
         chloe.play("idleChloe", true);
         showDialog('meetLily1');
-        ingameScreen.addEventListener('click', () => {
+        window.addEventListener('click', () => {
             if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                 showDialog('meetLily2');
-                ingameScreen.addEventListener('click', () => {
+                window.addEventListener('click', () => {
                     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                         showDialog('meetLily3');
-                        ingameScreen.addEventListener('click', () => {
+                        window.addEventListener('click', () => {
                             if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                                 showDialog('meetLily4');
-                                ingameScreen.addEventListener('click', () => {
+                                window.addEventListener('click', () => {
                                     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                                         dialogBox.style.display = "none";
                                         scenographyConfig.direction = -1;
@@ -311,11 +335,27 @@ function update() {
     }
 
     if (chloe.x < totalBackgroundLength / 1.2 && dialog8 === 0 && meetLily === true) {
-        chloe.play("idleChloe", true);
-        lily.play("idleLily", true);
         showDialogs(['retour1', 'retour2', 'retour3', 'retour4']);
-        console.log("animation");
+        console.log("animation8");
         dialog8++;
+    }
+
+    if (chloe.x < totalBackgroundLength / 1.8 && dialog9 === 0 && meetLily === true) {
+        showDialogs(['retour5', 'retour6']);
+        console.log("animation9");
+        dialog9++;
+    }
+
+    if (chloe.x < totalBackgroundLength / 2.8 && dialog10 === 0 && meetLily === true) {
+        showDialogs(['retour7', 'retour8', 'retour9', 'retour10']);
+        console.log("animation10");
+        dialog10++;
+    }
+
+    if (chloe.x < totalBackgroundLength / 10 && dialog11 === 0 && meetLily === true) {
+        showDialogs(['maman1', 'maman2']);
+        console.log("animation11");
+        dialog11++;
     }
 
     //CHLOE RETROUVE SA MAMAN 
@@ -355,6 +395,13 @@ function animateLily() {
         lily.play("idleLily", true);
         clearInterval(timer);
     }
+}
+
+function showDialogs() {
+    //show first dialog
+    //check if click
+    //if there is another dialog then show other dialog
+    //else close dialog
 }
 
 
