@@ -14,8 +14,8 @@ var config = {
 
 var isPlaying = false;
 var scenographyConfig = {
-    walkSpeed: 10,
-    crowdSpeed: 20,
+    walkSpeed: window.innerWidth/300,
+    crowdSpeed: window.innerWidth/50,
     direction: 1
 };
 var game = new Phaser.Game(config);
