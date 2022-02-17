@@ -423,7 +423,7 @@ function checkOverlap(spriteA, spriteB) { //SUPERPOSITION DE DEUX SPRITES
 function animateLily() {
     lily.x = lily.x - 1; //lily avance de 1 vers la gauche
     lily.play("walkLily", true);
-    if (lily.x < chloe.x - innerWidth / 15) {
+    if (lily.x < chloe.x - window.innerWidth / 15) {
         isPlaying = true;
         meetLily = true;
         difference = chloe.x - lily.x;
@@ -436,7 +436,7 @@ function animateLily() {
 function animateChloe() {
     chloe.x = chloe.x - 1; //chloe avance de 1 vers la gauche
     chloe.play("walkChloe", true);
-    if (chloe.x < window.innerWidth / 11 * 2) {
+    if (chloe.x < window.innerWidth / 11 * 3) {
         chloe.play("idleChloe", true);
         showDialog(['maman1']);
         varEndGame = 1;

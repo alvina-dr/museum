@@ -63,4 +63,8 @@ var CHARACTER = {
     retour8: './assets/head/lily.png',
     retour9: './assets/head/chloé.png',
     retour10: './assets/head/lily.png',
+
+    maman1: './assets/head/chloé.png',
+    maman2: './assets/head/chloé.png'
+
 }
