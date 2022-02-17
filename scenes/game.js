@@ -309,16 +309,16 @@ function update() {
     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
         chloe.play("idleChloeSob", true);
         showDialog('meetLily1');
-        window.addEventListener('click', () => {
+        ingameScreen.addEventListener('click', () => {
             if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                 showDialog('meetLily2');
-                window.addEventListener('click', () => {
+                ingameScreen.addEventListener('click', () => {
                     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                         showDialog('meetLily3');
-                        window.addEventListener('click', () => {
+                        ingameScreen.addEventListener('click', () => {
                             if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                                 showDialog('meetLily4');
-                                window.addEventListener('click', () => {
+                                ingameScreen.addEventListener('click', () => {
                                     if (chloe.x > totalBackgroundLength / 10 * 9 - 150 && meetLily === false) {
                                         dialogBox.style.display = "none";
                                         scenographyConfig.direction = -1;
