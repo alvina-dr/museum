@@ -36,7 +36,7 @@ var dialog11 = 0;
 var speed = scenographyConfig.walkSpeed;
 var meetLily = false;
 var chloeAnimationWalk = null;
-var endGame = 0;
+var varEndGame = 0;
 
 function preload() {
     /*this.load.atlasJSONHash;
@@ -368,7 +368,6 @@ function update() {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
         showDialogs(['retour1', 'retour2', 'retour3', 'retour4']);
-        console.log("animation8");
         dialog8++;
     }
 
@@ -376,7 +375,6 @@ function update() {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
         showDialogs(['retour5', 'retour6']);
-        console.log("animation9");
         dialog9++;
     }
 
@@ -384,7 +382,6 @@ function update() {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
         showDialogs(['retour7', 'retour8', 'retour9', 'retour10']);
-        console.log("animation10");
         dialog10++;
     }
 
@@ -392,15 +389,16 @@ function update() {
     if (chloe.x < totalBackgroundLength / 10 && dialog11 === 0 && meetLily === true) {
         chloe.play("idleChloe", true);
         lily.play("idleLily", true);
-        endGame = 1;
-        setPlaying(false);
+        isPlaying = false;
         timer = setInterval(animateChloe, 10);
-        showDialog(['maman1']);
         ingameScreen.addEventListener('click', () => {
-            if (endGame === 1) {
+            if (varEndGame === 1) {
+                console.log("premier clic")
                 showDialog(['maman2']);
+                varEndGame = 2;
                 ingameScreen.addEventListener('click', () => {
-                    if (endGame === 2) {
+                    if (varEndGame === 2) {
+                        console.log("deuxième clic")
                         endGame();
                     }
                 })
@@ -450,7 +448,8 @@ function animateChloe() {
     chloe.play("walkChloe", true);
     if (chloe.x < window.innerWidth / 11 * 2) {
         chloe.play("idleChloe", true);
-        showDialogs(['maman2']);
+        showDialog(['maman1']);
+        varEndGame = 1;
         clearInterval(timer);
     }
 }
