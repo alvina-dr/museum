@@ -55,7 +55,7 @@ function preload() {
     this.load.spritesheet('vagues', 'assets/ui/Bateau.png', { frameWidth: 1490, frameHeight: 856 });
     this.load.image('statue2', 'assets/ui/Apollon.png');
     this.load.image('maman', 'assets/sprites/Maman2.png');
-    this.load.image('press', 'assets/ui/press.png');
+    this.load.spritesheet('press', 'assets/ui/press.png', { frameWidth: 239, frameHeight: 239 });
 }
 
 function create() {
@@ -181,6 +181,15 @@ function create() {
     press = this.add.sprite(window.innerWidth * 0.90, window.innerHeight / 6 * 4.95, 'press');
     press.setOrigin(0, 0);
     press.setScale(background.scaleX / 1.5);
+    this.anims.create({
+        key: 'pressAnim',
+        frames: this.anims.generateFrameNumbers('press', {
+            start: 0,
+            end: 1
+        }),
+        frameRate: 5,
+        repeat: -1
+    });
 
     //STATUE1
     statue1 = this.add.image(background.displayWidth * 3.8, window.innerHeight / 5, 'statue1');
@@ -196,6 +205,7 @@ function create() {
     this.cameras.main.setBounds(0, 0, totalBackgroundLength, window.innerHeight);
     this.cameras.main.startFollow(chloe, true, 0.05, 0.05);
 
+    press.play('pressAnim');
 }
 
 function update() {
