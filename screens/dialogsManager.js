@@ -24,7 +24,6 @@ function showDialogs(dialogs) {
 function initDialogs() {
     ingameScreen.addEventListener('click', () => {
         if (dialogBox.style.display = "block"){
-            console.log("la joie");
             var pop = new Audio('/assets/sound/pop1_ui.mp3');
             pop.play();
         }

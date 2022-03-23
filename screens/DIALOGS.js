@@ -1,5 +1,5 @@
 var DIALOGS = {
-    introduction1: "Mmh... Ça l'air marrant là-bas. Et si je partais à l'aventure !",
+    introduction1: "Mmh... Ça a l'air marrant là-bas. Et si je partais à l'aventure !",
     introduction2: 'Ici vous pouvez voir une peinture de la Renaissance...',
     introduction3: 'Ugh, ugh. Il y a trop de monde ici.',
     tutoriel1: "*Appuyez sur l'écran pour faire avancer Chloe*",
