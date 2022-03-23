@@ -221,7 +221,9 @@ main section {
         width: 10%;
         margin-left: 0.5vw;
     }
-
+    #dialogBox {
+        font-size: 3vh;
+    }
 }
 
 .dialogBoxFlex {
