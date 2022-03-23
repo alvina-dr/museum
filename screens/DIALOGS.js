@@ -1,5 +1,5 @@
 var DIALOGS = {
-    introduction1: 'Pfff je m’ennuie.. J’aimerais tellement pouvoir partir. Pourquoi ne pas me balader un peu, Maman ne m’en voudra pas.',
+    introduction1: "Mmh... Ça l'air marrant là-bas. Et si je partais à l'aventure !",
     introduction2: 'Ici vous pouvez voir une peinture de la Renaissance...',
     introduction3: 'Ugh, ugh. Il y a trop de monde ici.',
     tutoriel1: "*Appuyez sur l'écran pour faire avancer Chloe*",
@@ -44,17 +44,17 @@ var CHARACTER = {
     tableau2: './assets/head/chloé.png',
     statue2: './assets/head/chloé.png',
     tableau3: './assets/head/chloé.png',
-    tableau3bis: './assets/head/chloéSob.png',
+    tableau3bis: './assets/head/chloésob.png',
 
     meetLily1: './assets/head/lily.png',
     meetLily2: './assets/head/lily.png',
-    meetLily3: './assets/head/chloéSob.png',
+    meetLily3: './assets/head/chloésob.png',
     meetLily4: './assets/head/lily.png',
 
     retour1: './assets/head/lily.png',
-    retour2: './assets/head/chloéSob.png',
+    retour2: './assets/head/chloésob.png',
     retour3: './assets/head/lily.png',
-    retour4: './assets/head/chloéSob.png',
+    retour4: './assets/head/chloésob.png',
 
     retour5: './assets/head/lily.png',
     retour6: './assets/head/chloé.png',
